@@ -24,4 +24,7 @@ def run_query(payload: QueryRequest):
         return result
         
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # This prints the actual error safely in your local VS Code terminal for you to debug
+        print(f"RAG Engine Error: {e}")
+        # This sends a clean, safe message back to the user without leaking system details
+        raise HTTPException(status_code=500, detail="An internal error occurred while processing your query.")
