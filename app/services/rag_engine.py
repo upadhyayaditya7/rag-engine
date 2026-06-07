@@ -1,64 +1,88 @@
 import os
-from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_groq import ChatGroq
+from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_groq import ChatGroq
 
-DB_DIR = "./chroma_db"
+# Setup file paths
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DB_DIR = os.path.join(BASE_DIR, "chroma_db")
+FILE_PATH = os.path.join(DATA_DIR, "company_policy.txt")
 
-# This reads your text into small vectors locally using almost zero RAM
+# Initialize the embedding model globally
 local_embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-# Pull key securely from your operating system environment variables
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-if GROQ_API_KEY:
-    os.environ["GROQ_API_KEY"] = GROQ_API_KEY
-
-def ingest_documents(file_path: str):
-    """Splits your policy document and creates the local database index."""
-    if not os.path.exists(file_path):
-        print(f"Error: {file_path} not found.")
+def initialize_rag_system():
+    """Reads the document, applies advanced chunking, and indexes it into ChromaDB."""
+    if not os.path.exists(FILE_PATH):
+        print(f"Error: {FILE_PATH} not found. Please create it first.")
         return
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        text = f.read()
+    print("--- Starting Document Processing ---")
+    # 1. Load the raw text document
+    loader = TextLoader(FILE_PATH, encoding="utf-8")
+    raw_documents = loader.load()
+    
+    # 2. Apply Smart Chunking using RecursiveCharacterTextSplitter
+    # chunk_size: Max characters per block. chunk_overlap: Shared characters between adjacent blocks.
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,
+        chunk_overlap=50,
+        separators=["\n\n", "\n", " ", ""]
+    )
+    
+    chunks = text_splitter.split_documents(raw_documents)
+    print(f"Successfully split document into {len(chunks)} individual, overlapping chunks.")
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)
-    chunks = text_splitter.split_text(text)
-
-    # UPDATED 'embedding' TO 'embedding_function' HERE TOO:
-    vector_store = Chroma.from_texts(
-        texts=chunks,
-        embedding_function=local_embeddings,
+    # 3. Store the chunked vectors into ChromaDB (overwriting old unchunked data)
+    vector_store = Chroma.from_documents(
+        documents=chunks, 
+        embedding=local_embeddings, 
         persist_directory=DB_DIR
     )
-    print("Successfully processed documents into ChromaDB!")
+    print("Database indexing complete. Smart chunks successfully stored!")
 
-def query_rag_system(user_query: str) -> dict:
-    """Searches local facts, then lets the cloud AI generate the response."""
-    vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
-    
-    # 1. Retrieve local context chunks
-    retrieved_docs = vector_store.similarity_search(user_query, k=2)
-    context_text = "\n".join([doc.page_content for doc in retrieved_docs])
-    
-    # 2. Strict system instructions to prevent lying
-    system_prompt = (
-        f"You are a strict corporate assistant. Answer the user question using ONLY the provided context. "
-        f"If the answer cannot be found in the context, reply exactly with: 'I cannot find that in the documents.'\n\n"
-        f"Context:\n{context_text}"
-    )
+def query_rag_system(user_question: str):
+    """Searches the smart chunks and generates a safe, factual response via Groq."""
+    if not os.environ.get("GROQ_API_KEY"):
+        return "RAG Engine Error: The GROQ_API_KEY environment variable is missing."
 
-    # 3. Generate: Calls Groq's blazing fast cloud model
-    llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
-    
-    full_prompt = f"{system_prompt}\n\nUser Question: {user_query}\nAnswer:"
-    ai_response = llm.invoke(full_prompt)
+    try:
+        # Connect to existing database index
+        vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
+        
+        # Search for the top 3 closest relevant chunks
+        retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+        relevant_docs = retriever.invoke(user_question)
+        
+        context_list = [doc.page_content for doc in relevant_docs]
+        combined_context = "\n---\n".join(context_list)
+        
+        # Initialize Llama 3.1 model via Groq
+        llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0.1)
+        
+        # System prompt ensuring no hallucinations
+        system_prompt = (
+            "You are a secure company assistant. Answer the user's question using ONLY the provided context below.\n"
+            "If the answer is not explicitly found within the context, respond exactly with: 'I cannot find that in the documents.'\n"
+            "Do not make up facts under any circumstances.\n\n"
+            f"Context:\n{combined_context}\n\n"
+            f"Question: {user_question}"
+        )
+        
+        response = llm.invoke(system_prompt)
+        
+        # Format return payload for the backend API
+        return {
+            "answer": response.content,
+            "retrieved_context": context_list
+        }
+        
+    except Exception as e:
+        return f"RAG Engine Error: {str(e)}"
 
-    return {
-        "answer": ai_response.content,
-        "retrieved_context": [doc.page_content for doc in retrieved_docs]
-    }
-
+# Self-contained execution for indexing
 if __name__ == "__main__":
-    ingest_documents("./data/company_policy.txt")
+    initialize_rag_system()
