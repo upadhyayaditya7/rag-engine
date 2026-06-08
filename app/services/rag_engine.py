@@ -14,6 +14,11 @@ FILE_PATH = os.path.join(DATA_DIR, "company_policy.txt")
 # Initialize the embedding model globally
 local_embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
+# --- NEW MEMORY STORAGE ---
+# Global in-memory dictionary to hold message logs for different sessions
+# Format: { "session_id": [{"role": "user/assistant", "content": "text"}] }
+sessions_chat_history = {}
+
 def initialize_rag_system():
     """Reads the document, applies advanced chunking, and indexes it into ChromaDB."""
     if not os.path.exists(FILE_PATH):
@@ -21,12 +26,9 @@ def initialize_rag_system():
         return
 
     print("--- Starting Document Processing ---")
-    # 1. Load the raw text document
     loader = TextLoader(FILE_PATH, encoding="utf-8")
     raw_documents = loader.load()
     
-    # 2. Apply Smart Chunking using RecursiveCharacterTextSplitter
-    # chunk_size: Max characters per block. chunk_overlap: Shared characters between adjacent blocks.
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50,
@@ -36,7 +38,6 @@ def initialize_rag_system():
     chunks = text_splitter.split_documents(raw_documents)
     print(f"Successfully split document into {len(chunks)} individual, overlapping chunks.")
 
-    # 3. Store the chunked vectors into ChromaDB (overwriting old unchunked data)
     vector_store = Chroma.from_documents(
         documents=chunks, 
         embedding=local_embeddings, 
@@ -44,26 +45,51 @@ def initialize_rag_system():
     )
     print("Database indexing complete. Smart chunks successfully stored!")
 
-def query_rag_system(user_question: str):
-    """Searches the smart chunks and generates a safe, factual response via Groq."""
+def query_rag_system(user_question: str, session_id: str = "default_user"):
+    """Contextualizes follow-up questions using session history, searches smart chunks, and answers via Groq."""
     if not os.environ.get("GROQ_API_KEY"):
         return "RAG Engine Error: The GROQ_API_KEY environment variable is missing."
 
     try:
-        # Connect to existing database index
-        vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
+        # Initialize Llama 3.1 model via Groq
+        llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0.1)
+
+        # Initialize or fetch history list for this specific user session
+        if session_id not in sessions_chat_history:
+            sessions_chat_history[session_id] = []
         
-        # Search for the top 3 closest relevant chunks
+        history = sessions_chat_history[session_id]
+
+        # --- STEP 1: CONTEXTUALIZE THE QUESTION (THE BRAIN OF THE MEMORY) ---
+        search_query = user_question
+        if len(history) > 0:
+            # Format the past history items cleanly for the model
+            formatted_history = ""
+            for msg in history[-4:]:  # Look at the last 4 messages to save tokens
+                formatted_history += f"{msg['role'].upper()}: {msg['content']}\n"
+
+            context_prompt = (
+                f"Given the following chat history between a user and an assistant, and a new follow-up question, "
+                f"rewrite the follow-up question into a standalone, complete question that can be understood on its own "
+                f"without needing the chat history. Do not answer the question, just return the rewritten question text.\n\n"
+                f"Chat History:\n{formatted_history}"
+                f"Follow-up Question: {user_question}\n\n"
+                f"Standalone Question:"
+            )
+            rewritten_response = llm.invoke(context_prompt)
+            search_query = rewritten_response.content.strip()
+
+        # --- STEP 2: VECTOR SEARCH USING THE REWRITTEN QUERY ---
+        vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
         retriever = vector_store.as_retriever(search_kwargs={"k": 3})
-        relevant_docs = retriever.invoke(user_question)
+        
+        # We invoke retrieval using the standalone 'search_query', NOT the raw user_question
+        relevant_docs = retriever.invoke(search_query)
         
         context_list = [doc.page_content for doc in relevant_docs]
         combined_context = "\n---\n".join(context_list)
         
-        # Initialize Llama 3.1 model via Groq
-        llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0.1)
-        
-        # System prompt ensuring no hallucinations
+        # --- STEP 3: GENERATE THE RAG RESPONSE WITH SYSTEM PROMPT ---
         system_prompt = (
             "You are a secure company assistant. Answer the user's question using ONLY the provided context below.\n"
             "If the answer is not explicitly found within the context, respond exactly with: 'I cannot find that in the documents.'\n"
@@ -73,16 +99,21 @@ def query_rag_system(user_question: str):
         )
         
         response = llm.invoke(system_prompt)
-        
-        # Format return payload for the backend API
+        final_answer = response.content
+
+        # --- STEP 4: UPDATE THE TRACKED SESSION HISTORY ---
+        # --- STEP 4: UPDATE THE TRACKED SESSION HISTORY ---
+        history.append({"role": "user", "content": user_question})
+        history.append({"role": "assistant", "content": final_answer})
+
         return {
-            "answer": response.content,
-            "retrieved_context": context_list
+            "answer": final_answer,
+            "retrieved_context": context_list,
+            "standalone_query": search_query  # <-- ADD THIS LINE
         }
         
     except Exception as e:
         return f"RAG Engine Error: {str(e)}"
 
-# Self-contained execution for indexing
 if __name__ == "__main__":
     initialize_rag_system()

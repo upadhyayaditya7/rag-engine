@@ -1,30 +1,35 @@
+import os
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.services.rag_engine import query_rag_system
 
-# This exact line MUST be here and lowercase 'app'
-app = FastAPI(title="Secure Cloud-Powered RAG API")
+app = FastAPI(title="Memory-Aware Company RAG API")
 
+# Enable CORS so your Streamlit frontend can communicate seamlessly with the backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Added session_id parameter to the request model with a default fallback
 class QueryRequest(BaseModel):
     question: str
+    session_id: str = "default_user"
 
 @app.get("/")
-def read_root():
-    return {"status": "Online", "message": "Your RAG pipeline API is running perfectly!"}
+def home():
+    return {"status": "Online", "engine": "RAG with Persistent Memory"}
 
-@app.post("/api/v1/query")
-def run_query(payload: QueryRequest):
-    """Takes a user question, runs it through the RAG engine, and returns the cloud AI answer."""
-    try:
-        if not payload.question.strip():
-            raise HTTPException(status_code=400, detail="Question cannot be empty.")
+@app.post("/query")
+def handle_query(request: QueryRequest):
+    # Pass both the question and the session_id to the upgraded RAG service
+    result = query_rag_system(request.question, session_id=request.session_id)
+    
+    if isinstance(result, str) and "Error" in result:
+        raise HTTPException(status_code=500, detail=result)
         
-        # Call your secure RAG engine
-        result = query_rag_system(payload.question)
-        return result
-        
-    except Exception as e:
-        # This prints the actual error safely in your local VS Code terminal for you to debug
-        print(f"RAG Engine Error: {e}")
-        # This sends a clean, safe message back to the user without leaking system details
-        raise HTTPException(status_code=500, detail="An internal error occurred while processing your query.")
+    return result
