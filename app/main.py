@@ -33,3 +33,9 @@ def handle_query(request: QueryRequest):
         raise HTTPException(status_code=500, detail=result)
         
     return result
+
+@app.post("/api/clear-history")
+def clear_history():
+    global sessions_chat_history
+    sessions_chat_history = {}
+    return {"status": "success", "message": "Chat history cleared"}
