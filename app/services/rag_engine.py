@@ -130,9 +130,9 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         
     except Exception as e:
         import traceback
-        print("\n!!! CRITICAL RAG ENGINE ERROR !!!")
+        print("\nCRITICAL RAG ENGINE ERROR !")
         traceback.print_exc()
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
+        print("!!!!!\n")
         return {"answer": f"RAG Engine Error: {str(e)}", "retrieved_context": []}
 
 if __name__ == "__main__":

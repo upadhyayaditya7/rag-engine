@@ -1,39 +1,68 @@
 import streamlit as st
 import requests
+import json
 
 # Set up page configurations
 st.set_page_config(page_title="RAG AI Assistant", page_icon="🤖", layout="centered")
 
-# --- NEW SIDEBAR CONTROL PANEL ---
-# This adds the button to clear memory on both frontend and backend
+# Configure backend URLs
+BASE_API_URL = "http://127.0.0.1:8000"
+QUERY_URL = f"{BASE_API_URL}/query"
+UPLOAD_URL = f"{BASE_API_URL}/api/upload"
+CLEAR_URL = f"{BASE_API_URL}/api/clear-history"
+RESET_URL = f"{BASE_API_URL}/api/reset-database"
+
+# --- SIDEBAR CONTROL PANEL ---
 with st.sidebar:
     st.title("🎛️ Control Panel")
-    st.write("Manage your active AI assistant context.")
+    st.write("Manage documents and system context.")
     
+    # 1. Drag-and-Drop File Uploader
+    uploaded_file = st.file_uploader("Upload new documents (.pdf, .txt)", type=["pdf", "txt"])
+    if uploaded_file is not None:
+        with st.spinner(f"Uploading and processing {uploaded_file.name}..."):
+            try:
+                # Prepare file payload for Multipart Form Upload
+                files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
+                upload_response = requests.post(UPLOAD_URL, files=files, timeout=60)
+                
+                if upload_response.status_code == 200:
+                    st.success(f"{uploaded_file.name} is processed and ready!")
+                else:
+                    st.error("Backend processing error encountered.")
+            except requests.exceptions.ConnectionError:
+                st.error("Backend server is offline.")
+
+    st.markdown("---")
+    
+    # 2. Clear Chat History Button
     if st.button("🧹 Clear Chat History", use_container_width=True):
-        # 1. Wipe the local frontend message lists
         st.session_state.messages = []
-        
-        # 2. Tell the backend to drop the memory for this session id
         try:
-            # Matches the base URL of your query endpoint
-            CLEAR_API_URL = "http://127.0.0.1:8000/api/clear-history"
-            # Optional: if you updated your backend function to accept a session_id payload
-            requests.post(CLEAR_API_URL, json={"session_id": "streamlit_user_session"}, timeout=5)
-            st.success("History wiped successfully!")
+            requests.post(CLEAR_URL, json={"session_id": "streamlit_user_session"}, timeout=5)
+            st.success("History wiped!")
         except requests.exceptions.ConnectionError:
-            st.error("Could not reach backend server to wipe memory.")
-            
-        # 3. Refresh the application to show an empty chat board
+            st.error("Could not reach backend to wipe memory.")
         st.rerun()
 
+    # 3. Hard Reset Vector Database Button
+    if st.button("Hard Reset Database", use_container_width=True):
+        with st.spinner("Wiping database and re-indexing data folder..."):
+            try:
+                reset_response = requests.post(RESET_URL, timeout=45)
+                if reset_response.status_code == 200:
+                    st.success("Database rebuilt fresh!")
+                    st.session_state.messages = []  # Clear current chat logs from view
+                    st.rerun()
+                else:
+                    st.error("Failed to reset database.")
+            except requests.exceptions.ConnectionError:
+                st.error("Backend server is offline.")
+
 st.title("🤖 Secure RAG Pipeline Chat")
-st.caption("Ask questions about your company policy documents in real-time.")
+st.caption("Ask questions about your company policy or practice documents in real-time.")
 
-# FIXED: Removed the /api/v1 prefix to match the FastAPI route exactly
-API_URL = "http://127.0.0.1:8000/query"
-
-# Initialize message history in streamlit session state so chat doesn't vanish on refresh
+# Initialize session state message log
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -42,39 +71,46 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Accept user input from the chat box
+# Accept user input
 if user_question := st.chat_input("What would you like to know?"):
     
-    # Display user message immediately in the UI
+    # Render user message immediately
     with st.chat_message("user"):
         st.markdown(user_question)
     st.session_state.messages.append({"role": "user", "content": user_question})
 
-    # Display a loading spinner while communicating with our FastAPI backend
+    # Render assistant response block
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
         
         try:
-            # Send the request to your local FastAPI server including a session_id
             payload = {
                 "question": user_question,
                 "session_id": "streamlit_user_session"
             }
-            response = requests.post(API_URL, json=payload, timeout=30)
+            
+            # Request connection to the backend
+            response = requests.post(QUERY_URL, json=payload, timeout=30)
             
             if response.status_code == 200:
                 data = response.json()
-                answer = data.get("answer", "No answer field found in response.")
+                answer = data.get("answer", "No answer field found.")
                 context = data.get("retrieved_context", [])
-                standalone_q = data.get("standalone_query", user_question) # Fallback to raw question
+                standalone_q = data.get("standalone_query", user_question)
                 
-                # Render the answer string
-                response_placeholder.markdown(answer)
+                # Helper generator function to simulate smooth token-by-token text generation
+                def token_streamer():
+                    for word in answer.split(" "):
+                        yield word + " "
+                        import time
+                        time.sleep(0.04) # Simulates a smooth typing speed
                 
-                # Advanced System Diagnostics Panel
+                # Pass the generator directly into Streamlit's official streaming text block!
+                full_streamed_text = response_placeholder.write_stream(token_streamer())
+                
+                # Advanced System Diagnostics Panel rendered right after the stream concludes
                 with st.expander("⚙️ System Diagnostics (Behind the Scenes)"):
                     st.info(f"**Contextualized Search Query:** *\"{standalone_q}\"*")
-                    
                     if context:
                         st.write("**Retrieved Document Context Chunks:**")
                         for idx, chunk in enumerate(context):
@@ -82,11 +118,7 @@ if user_question := st.chat_input("What would you like to know?"):
                 
                 st.session_state.messages.append({"role": "assistant", "content": answer})
             else:
-                # Handle structured backend errors gracefully
-                error_msg = f"Backend Error ({response.status_code}): Could not retrieve answer."
-                response_placeholder.error(error_msg)
+                response_placeholder.error(f"Backend Error ({response.status_code})")
                 
         except requests.exceptions.ConnectionError:
-            response_placeholder.error("Could not connect to the FastAPI backend. Is your server running?")
-        except Exception as e:
-            response_placeholder.error(f"An unexpected error occurred: {str(e)}")
+            response_placeholder.error("Could not connect to the FastAPI backend.")
