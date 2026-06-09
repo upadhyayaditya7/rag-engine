@@ -4,6 +4,29 @@ import requests
 # Set up page configurations
 st.set_page_config(page_title="RAG AI Assistant", page_icon="🤖", layout="centered")
 
+# --- NEW SIDEBAR CONTROL PANEL ---
+# This adds the button to clear memory on both frontend and backend
+with st.sidebar:
+    st.title("🎛️ Control Panel")
+    st.write("Manage your active AI assistant context.")
+    
+    if st.button("🧹 Clear Chat History", use_container_width=True):
+        # 1. Wipe the local frontend message lists
+        st.session_state.messages = []
+        
+        # 2. Tell the backend to drop the memory for this session id
+        try:
+            # Matches the base URL of your query endpoint
+            CLEAR_API_URL = "http://127.0.0.1:8000/api/clear-history"
+            # Optional: if you updated your backend function to accept a session_id payload
+            requests.post(CLEAR_API_URL, json={"session_id": "streamlit_user_session"}, timeout=5)
+            st.success("History wiped successfully!")
+        except requests.exceptions.ConnectionError:
+            st.error("Could not reach backend server to wipe memory.")
+            
+        # 3. Refresh the application to show an empty chat board
+        st.rerun()
+
 st.title("🤖 Secure RAG Pipeline Chat")
 st.caption("Ask questions about your company policy documents in real-time.")
 
