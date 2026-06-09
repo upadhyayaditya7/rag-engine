@@ -1,2 +1,14 @@
 __pycache__/
 chroma_db/
+
+# Prevent large datasets or PDFs from being pushed
+data/
+
+# Block local environment files/keys if you add them later
+.env
+.venv/
+venv/
+
+# Block hidden Windows folder metadata files
+Thumbs.db
+Desktop.ini

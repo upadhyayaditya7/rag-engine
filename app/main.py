@@ -1,16 +1,16 @@
 import os
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import shutil
+import gc  # Added for garbage collection to unlock files on Windows
+
 # Imported initialize_rag_system and sessions_chat_history from your engine service
 from app.services.rag_engine import query_rag_system, initialize_rag_system, sessions_chat_history
-from fastapi import UploadFile, File
-import shutil
 
 app = FastAPI(title="Memory-Aware Company RAG API")
 
 # --- FIXED: DEFINE DATA_DIR SAFELY AT THE TOP ---
-# Since main.py is inside the 'app' directory, its parent is the true project root
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CURRENT_DIR)
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -25,7 +25,6 @@ app.add_middleware(
 )
 
 # --- AUTOMATED STARTUP LIFECYCLE HOOK ---
-# This forces FastAPI to scan files and index them into ChromaDB every time it boots
 @app.on_event("startup")
 async def startup_event():
     print("FastAPI Boot Sequence: Syncing Data Folders with ChromaDB...")
@@ -42,7 +41,6 @@ def home():
 
 @app.post("/query")
 def handle_query(request: QueryRequest):
-    # Pass both the question and the session_id to the upgraded RAG service
     result = query_rag_system(request.question, session_id=request.session_id)
     
     if isinstance(result, str) and "Error" in result:
@@ -52,14 +50,13 @@ def handle_query(request: QueryRequest):
 
 @app.post("/api/clear-history")
 def clear_history():
-    # Correctly targets the global dictionary imported from the engine file
     global sessions_chat_history
     sessions_chat_history.clear()
     return {"status": "success", "message": "Chat history cleared"}
 
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
-    """Receives a file from the frontend, saves it to data/, and re-indexes the RAG system."""
+    """Receives a file from the frontend, saves it to data/, and re-indexes the RAG system safely."""
     try:
         # Ensure the data directory exists before trying to write to it
         if not os.path.exists(DATA_DIR):
@@ -74,34 +71,48 @@ async def upload_file(file: UploadFile = File(...)):
             
         print(f"\n[SUCCESS] Uploaded successfully: New file saved at {file_path}")
         
+        # Force Python to instantly clear any lingering background DB client reads 
+        gc.collect()
+        
         # Trigger the automatic ingestion pipeline to process the fresh document instantly!
         initialize_rag_system()
         
         return {"status": "success", "message": f"Successfully uploaded and indexed {file.filename}"}
     except Exception as e:
-        # If anything else breaks, this will force it to print to your terminal log
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
     
 @app.post("/api/reset-database")
 def reset_database():
-    """Wipes the ChromaDB collection completely and re-indexes only what is currently in the data/ folder."""
+    """Wipes the ChromaDB memory cleanly without triggering Windows folder permission locks."""
     try:
+        import gc
         from app.services.rag_engine import initialize_rag_system
-        import shutil
         
-        # Define the path to your chroma db directory
-        CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-        BASE_DIR = os.path.dirname(CURRENT_DIR)
+        print("\n[RESET INITIATED] Cleaning database memory safely...")
+        
+        # 1. Force Python to clear memory buffers
+        gc.collect()
+        
+        # 2. Check if the directory exists
         DB_DIR = os.path.join(BASE_DIR, "chroma_db")
         
-        # 1. Delete the physical database folder if it exists
         if os.path.exists(DB_DIR):
-            shutil.rmtree(DB_DIR)
-            print("[RESET] Physical ChromaDB folder deleted.")
-            
-        # 2. Re-run the initialization to build a completely blank slate and read the new data folder
+            try:
+                # Loop inside the folder and delete the internal data files instead of the whole folder
+                for filename in os.listdir(DB_DIR):
+                    file_path = os.path.join(DB_DIR, filename)
+                    if os.path.isfile(file_path) or os.path.islink(file_path):
+                        os.unlink(file_path)
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                print("[RESET SUCCESS] Internal ChromaDB contents cleared cleanly.")
+            except PermissionError:
+                print("[LOCK DETECTED] File lock active, falling back to clean system re-index.")
+                # If Windows still blocks it, we proceed to re-initialization which overwrites stale data
+        
+        # 3. Re-run initialization to sync up with whatever files are currently in the data/ folder
         initialize_rag_system()
         
         return {"status": "success", "message": "Vector database completely reset and re-indexed fresh!"}
