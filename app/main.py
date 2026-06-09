@@ -2,7 +2,8 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from app.services.rag_engine import query_rag_system
+# Imported initialize_rag_system and sessions_chat_history from your engine service
+from app.services.rag_engine import query_rag_system, initialize_rag_system, sessions_chat_history
 
 app = FastAPI(title="Memory-Aware Company RAG API")
 
@@ -14,6 +15,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# --- AUTOMATED STARTUP LIFECYCLE HOOK ---
+# This forces FastAPI to scan files and index them into ChromaDB every time it boots
+@app.on_event("startup")
+async def startup_event():
+    print("FastAPI Boot Sequence: Syncing Data Folders with ChromaDB...")
+    initialize_rag_system()
 
 # Added session_id parameter to the request model with a default fallback
 class QueryRequest(BaseModel):
@@ -36,6 +44,7 @@ def handle_query(request: QueryRequest):
 
 @app.post("/api/clear-history")
 def clear_history():
+    # Correctly targets the global dictionary imported from the engine file
     global sessions_chat_history
-    sessions_chat_history = {}
+    sessions_chat_history.clear()
     return {"status": "success", "message": "Chat history cleared"}
