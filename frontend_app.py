@@ -66,10 +66,24 @@ st.caption("Ask questions about your company policy or practice documents in rea
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous chat history
+# --- DISPLAY CHAT HISTORY ---
+# Iterates through previous turns, rendering the answers and their persistent diagnostic records
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        
+        # If the historic message contains a saved diagnostics footprint, render it!
+        if message["role"] == "assistant" and "diagnostics" in message:
+            diag = message["diagnostics"]
+            with st.expander("⚙️ System Diagnostics (Behind the Scenes)"):
+                st.info(f"**Contextualized Search Query:** *\"{diag['standalone_q']}\"*")
+                if diag["context"]:
+                    st.write("**Retrieved Document Context Chunks:**")
+                    for idx, chunk in enumerate(diag["context"]):
+                        chunk_text = chunk.get("text", "No context text found.")
+                        chunk_source = chunk.get("source", "Unknown Source")
+                        with st.expander(f"📄 Chunk {idx+1}: Found in {chunk_source}"):
+                            st.write(chunk_text)
 
 # Accept user input
 if user_question := st.chat_input("What would you like to know?"):
@@ -108,15 +122,27 @@ if user_question := st.chat_input("What would you like to know?"):
                 # Pass the generator directly into Streamlit's official streaming text block!
                 full_streamed_text = response_placeholder.write_stream(token_streamer())
                 
-                # Advanced System Diagnostics Panel rendered right after the stream concludes
+                # Live System Diagnostics Panel rendered right after the stream concludes
                 with st.expander("⚙️ System Diagnostics (Behind the Scenes)"):
                     st.info(f"**Contextualized Search Query:** *\"{standalone_q}\"*")
                     if context:
                         st.write("**Retrieved Document Context Chunks:**")
                         for idx, chunk in enumerate(context):
-                            st.write(f"📁 *Chunk {idx+1}:* {chunk}")
+                            chunk_text = chunk.get("text", "No context text found.")
+                            chunk_source = chunk.get("source", "Unknown Source File")
+                            
+                            with st.expander(f"📄 Chunk {idx+1}: Found in {chunk_source}"):
+                                st.write(chunk_text)
                 
-                st.session_state.messages.append({"role": "assistant", "content": answer})
+                # Append everything into the message object so it remains persistent
+                st.session_state.messages.append({
+                    "role": "assistant", 
+                    "content": answer,
+                    "diagnostics": {
+                        "standalone_q": standalone_q,
+                        "context": context
+                    }
+                })
             else:
                 response_placeholder.error(f"Backend Error ({response.status_code})")
                 
