@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import os
 
 # Set up page configurations
 st.set_page_config(page_title="RAG AI Assistant", page_icon="🤖", layout="centered")
@@ -12,6 +13,10 @@ UPLOAD_URL = f"{BASE_API_URL}/api/upload"
 CLEAR_URL = f"{BASE_API_URL}/api/clear-history"
 RESET_URL = f"{BASE_API_URL}/api/reset-database"
 
+# Initialize persistent tracking for uploaded files in session state
+if "uploaded_tracker" not in st.session_state:
+    st.session_state.uploaded_tracker = []
+
 # --- SIDEBAR CONTROL PANEL ---
 with st.sidebar:
     st.title("🎛️ Control Panel")
@@ -19,7 +24,9 @@ with st.sidebar:
     
     # 1. Drag-and-Drop File Uploader
     uploaded_file = st.file_uploader("Upload new documents (.pdf, .txt)", type=["pdf", "txt"])
-    if uploaded_file is not None:
+    
+    # Only upload if the file exists and hasn't been processed in this state yet
+    if uploaded_file is not None and uploaded_file.name not in st.session_state.uploaded_tracker:
         with st.spinner(f"Uploading and processing {uploaded_file.name}..."):
             try:
                 # Prepare file payload for Multipart Form Upload
@@ -27,15 +34,24 @@ with st.sidebar:
                 upload_response = requests.post(UPLOAD_URL, files=files, timeout=60)
                 
                 if upload_response.status_code == 200:
-                    st.success(f"{uploaded_file.name} is processed and ready!")
+                    st.success(f"{uploaded_file.name} successfully indexed!")
+                    # Log the file name so it never re-uploads on chat inputs
+                    st.session_state.uploaded_tracker.append(uploaded_file.name)
+                    st.rerun()
                 else:
                     st.error("Backend processing error encountered.")
             except requests.exceptions.ConnectionError:
                 st.error("Backend server is offline.")
 
+    # 2. Visually Display All Uploaded Files Currently Active
+    if st.session_state.uploaded_tracker:
+        st.markdown("### 📁 Active System Documents")
+        for doc_name in st.session_state.uploaded_tracker:
+            st.caption(f"✅ {doc_name}")
+
     st.markdown("---")
     
-    # 2. Clear Chat History Button
+    # 3. Clear Chat History Button
     if st.button("🧹 Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         try:
@@ -45,7 +61,7 @@ with st.sidebar:
             st.error("Could not reach backend to wipe memory.")
         st.rerun()
 
-    # 3. Hard Reset Vector Database Button
+    # 4. Hard Reset Vector Database Button
     if st.button("Hard Reset Database", use_container_width=True):
         with st.spinner("Wiping database and re-indexing data folder..."):
             try:
@@ -53,6 +69,7 @@ with st.sidebar:
                 if reset_response.status_code == 200:
                     st.success("Database rebuilt fresh!")
                     st.session_state.messages = []  # Clear current chat logs from view
+                    st.session_state.uploaded_tracker = []  # Clear tracker view
                     st.rerun()
                 else:
                     st.error("Failed to reset database.")
@@ -67,12 +84,10 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 # --- DISPLAY CHAT HISTORY ---
-# Iterates through previous turns, rendering the answers and their persistent diagnostic records
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
         
-        # If the historic message contains a saved diagnostics footprint, render it!
         if message["role"] == "assistant" and "diagnostics" in message:
             diag = message["diagnostics"]
             with st.expander("⚙️ System Diagnostics (Behind the Scenes)"):
@@ -117,9 +132,8 @@ if user_question := st.chat_input("What would you like to know?"):
                     for word in answer.split(" "):
                         yield word + " "
                         import time
-                        time.sleep(0.04) # Simulates a smooth typing speed
+                        time.sleep(0.04)
                 
-                # Pass the generator directly into Streamlit's official streaming text block!
                 full_streamed_text = response_placeholder.write_stream(token_streamer())
                 
                 # Live System Diagnostics Panel rendered right after the stream concludes

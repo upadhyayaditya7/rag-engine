@@ -1,4 +1,5 @@
 import os
+import shutil  # Added to physically clear old database files cleanly in code
 from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
 # --- UPGRADED IMPORT: Swapped out RecursiveCharacterTextSplitter for SemanticChunker ---
 from langchain_experimental.text_splitter import SemanticChunker
@@ -26,6 +27,14 @@ def initialize_rag_system():
 
     print("--- Starting Document Processing Pipeline ---")
     
+    # 🛠️ ADVANCED FIX: Physically wipe the directory in code on initialization to guarantee fresh chunks
+    if os.path.exists(DB_DIR):
+        try:
+            shutil.rmtree(DB_DIR)
+            print("[CLEANING] Old database folder removed from disk successfully.")
+        except Exception as e:
+            print(f"[CLEANING WARNING] Could not wipe DB directory automatically: {e}")
+    
     # Define directory loaders for both file types
     text_loader_kwargs = {'encoding': 'utf-8'}
     loaders = {
@@ -50,13 +59,11 @@ def initialize_rag_system():
     # --- ADVANCED PRODUCTION UPGRADE: SEMANTIC CHUNKING ---
     print("Initializing Semantic Chunker (evaluating sentence embedding variances)...")
     
-    # We pass your local_embeddings model directly into the chunker. 
-    # breakpoint_threshold_type="percentile" calculates distances between sentences 
-    # and splits them if the difference falls into the top 5% of variance (95th percentile).
+    # Lowered breakpoint_threshold_amount to 0.88 to keep procedures and sequential questions grouped together
     text_splitter = SemanticChunker(
         embeddings=local_embeddings,
         breakpoint_threshold_type="percentile",
-        breakpoint_threshold_amount=0.95
+        breakpoint_threshold_amount=0.88
     )
     
     chunks = text_splitter.split_documents(raw_documents)
@@ -122,11 +129,14 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         context_list = [doc.page_content for doc in relevant_docs]
         combined_context = "\n---\n".join(context_list)
         
-        # --- STEP 3: GENERATE THE RAG RESPONSE WITH SYSTEM PROMPT ---
+        # --- STEP 3: GENERATE THE RAG RESPONSE WITH SYSTEM PROMPT (UPGRADED WITH REASONING PERMISSIONS) ---
         system_prompt = (
-            "You are a secure company assistant. Answer the user's question using ONLY the provided context below.\n"
-            "If the answer is not explicitly found within the context, respond exactly with: 'I cannot find that in the documents.'\n"
-            "Do not make up facts under any circumstances.\n\n"
+            "You are an advanced academic AI co-pilot. Your task is to accurately answer the user's question using the provided context blocks.\n"
+            "CRITICAL EXAM-PREP DIRECTIONS:\n"
+            "1. If the context presents a problem statement, a mathematical proof request, a question from an assignment sheet, or a code derivation challenge, "
+            "you are EXPLICITLY PERMITTED to use your internal logic, programming skills, and reasoning capabilities to calculate and derive the full, step-by-step solution using the exact variables provided in the text.\n"
+            "2. If the context is completely empty or utterly unrelated to the user's prompt, respond exactly with: 'I cannot find that in the documents.'\n"
+            "3. Never formulate outside hypotheses that stray away from the data core established in the context.\n\n"
             f"Context:\n{combined_context}\n\n"
             f"Question: {user_question}"
         )
@@ -137,11 +147,8 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         # --- STEP 4: EXTRACT METADATA ALONG WITH TEXT (FIXES FRONTEND ERROR) ---
         formatted_context = []
         for doc in relevant_docs:
-            # Safely extract file name and page number from LangChain document metadata
             source_path = doc.metadata.get('source', 'Unknown File')
             source_file = os.path.basename(source_path)
-            
-            # LangChain pages are 0-indexed; add 1 so it matches human-readable pages (e.g. Page 1, Page 2)
             page_num = doc.metadata.get('page', 0) + 1  
             
             formatted_context.append({
