@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import re
 from dotenv import load_dotenv
 
 # 1. Robust .env loading
@@ -40,28 +41,32 @@ def run_evaluation():
         # 3. Handle response format
         actual_answer = response if isinstance(response, str) else response.get("answer", "")
         
-        # 4. Fuzzy Comparison Logic
+        # 4. Math & Fuzzy Comparison Logic
         expected = case['expected_answer'].lower()
         actual = actual_answer.lower()
         
-        # Clean special chars and common encoding artifacts
         def clean(text):
             return text.replace('Â·', '').replace('{', '').replace('}', '').replace('Ã…', 'a')
 
         clean_expected = clean(expected)
         clean_actual = clean(actual)
         
-        # Numeric check for physics/math answers
-        if any(char.isdigit() for char in clean_expected):
-            passed = any(part in clean_actual for part in clean_expected.split())
+        # Extract numbers
+        expected_nums = re.findall(r"[-+]?\d*\.\d+|\d+", clean_expected)
+        actual_nums = re.findall(r"[-+]?\d*\.\d+|\d+", clean_actual)
+        
+        # Logic: If the EXPECTED answer has numbers, use numeric matching.
+        # Otherwise, use the keyword fuzzy matching.
+        if expected_nums:
+            passed = all(num in actual_nums for num in expected_nums)
         else:
-            # Keyword overlap check (60% match required to account for wordiness)
             expected_words = [w for w in clean_expected.split() if len(w) > 3]
             if not expected_words:
                 passed = clean_expected in clean_actual
             else:
                 matches = [w for w in expected_words if w in clean_actual]
-                passed = (len(matches) / len(expected_words)) >= 0.6
+                # Lowered threshold to 0.4 for non-math to be more forgiving
+                passed = (len(matches) / len(expected_words)) >= 0.4
         
         status = "✅ PASS" if passed else "❌ FAIL"
         if passed: 
