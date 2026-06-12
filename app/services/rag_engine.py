@@ -129,14 +129,20 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         context_list = [doc.page_content for doc in relevant_docs]
         combined_context = "\n---\n".join(context_list)
         
-        # --- STEP 3: GENERATE THE RAG RESPONSE WITH SYSTEM PROMPT (UPGRADED WITH REASONING PERMISSIONS) ---
+        # --- STEP 3: GENERATE THE RAG RESPONSE WITH SYSTEM PROMPT (STRICT MATH RULES) ---
         system_prompt = (
-            "You are an advanced academic AI co-pilot. Your task is to accurately answer the user's question using the provided context blocks.\n"
-            "CRITICAL EXAM-PREP DIRECTIONS:\n"
-            "1. If the context presents a problem statement, a mathematical proof request, a question from an assignment sheet, or a code derivation challenge, "
-            "you are EXPLICITLY PERMITTED to use your internal logic, programming skills, and reasoning capabilities to calculate and derive the full, step-by-step solution using the exact variables provided in the text.\n"
-            "2. If the context is completely empty or utterly unrelated to the user's prompt, respond exactly with: 'I cannot find that in the documents.'\n"
-            "3. Never formulate outside hypotheses that stray away from the data core established in the context.\n\n"
+            "You are an expert physics tutor. Solve the user's question using ONLY the provided context.\n"
+            "If the question is a calculation, follow this exact structure:\n"
+            "CALCULATION STEPS:\n"
+            "1. Identify Formula: [Write the formula]\n"
+            "2. Substitution: [Plug in values from context]\n"
+            "3. Final Result: [Show final numerical answer]\n\n"
+            "EXAMPLE:\n"
+            "Question: Probability for L=20, interval 10?\n"
+            "CALCULATION STEPS:\n"
+            "1. Identify Formula: P = ∫(sin^2(nπx/L)) dx from (L-a)/2 to (L+a)/2\n"
+            "2. Substitution: Integrate sin^2(πx/20) from 5 to 15\n"
+            "3. Final Result: 0.81\n\n"
             f"Context:\n{combined_context}\n\n"
             f"Question: {user_question}"
         )
