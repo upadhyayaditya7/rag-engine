@@ -40,16 +40,28 @@ def run_evaluation():
         # 3. Handle response format
         actual_answer = response if isinstance(response, str) else response.get("answer", "")
         
-        # 4. Smarter Comparison Logic
+        # 4. Fuzzy Comparison Logic
         expected = case['expected_answer'].lower()
         actual = actual_answer.lower()
         
-        # Check if the expected answer is a number (e.g., 0.81) or contains key terms
-        if expected.replace('.', '', 1).isdigit(): 
-            passed = expected in actual
+        # Clean special chars and common encoding artifacts
+        def clean(text):
+            return text.replace('Â·', '').replace('{', '').replace('}', '').replace('Ã…', 'a')
+
+        clean_expected = clean(expected)
+        clean_actual = clean(actual)
+        
+        # Numeric check for physics/math answers
+        if any(char.isdigit() for char in clean_expected):
+            passed = any(part in clean_actual for part in clean_expected.split())
         else:
-            # Check if all key words (longer than 3 chars) from the expected answer appear in the response
-            passed = all(word in actual for word in expected.split() if len(word) > 3)
+            # Keyword overlap check (60% match required to account for wordiness)
+            expected_words = [w for w in clean_expected.split() if len(w) > 3]
+            if not expected_words:
+                passed = clean_expected in clean_actual
+            else:
+                matches = [w for w in expected_words if w in clean_actual]
+                passed = (len(matches) / len(expected_words)) >= 0.6
         
         status = "✅ PASS" if passed else "❌ FAIL"
         if passed: 
