@@ -77,23 +77,38 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
 
         # 2. Librarian (Dynamic Discovery)
         vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
-        unique_files = list(set(m.get('file_name') for m in vector_store.get()['metadatas'] if m.get('file_name')))
+        metadata_list = vector_store.get(include=['metadatas'])
+        unique_files = list(set(m.get('file_name') for m in metadata_list['metadatas'] if m.get('file_name')))
         
-        choice_prompt = f"Available: {', '.join(unique_files)}\nTarget: {search_query}\nWhich file is relevant? Return ONLY the filename."
+        choice_prompt = f"Available files: {', '.join(unique_files)}\nTarget: {search_query}\nWhich file is relevant? Return ONLY the filename. If none are relevant, return 'NONE'."
         chosen_file = llm.invoke(choice_prompt).content.strip()
 
-        # 3. Retrieve
-        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 5, "fetch_k": 15})
+        # 3. Targeted Retrieval (The Fix)
+        # We define search_kwargs BEFORE initializing the retriever
+        search_kwargs = {"k": 6, "fetch_k": 20}
+        
+        # APPLY FILTER AT RETRIEVAL TIME: This ensures we only search the relevant file
+        if chosen_file in unique_files:
+            search_kwargs["filter"] = {"file_name": chosen_file}
+            print(f"DEBUG: Routing search to file: {chosen_file}")
+        else:
+            print("DEBUG: No specific file routed, searching entire collection.")
+
+        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs=search_kwargs)
         docs = retriever.invoke(search_query)
         
-        # Filter context
-        if chosen_file in unique_files:
-            docs = [d for d in docs if d.metadata.get('file_name') == chosen_file]
+        # Fallback: If no docs found in the specific file, try global search
+        if not docs and "filter" in search_kwargs:
+            print("DEBUG: No hits in target file, falling back to global search.")
+            retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 6})
+            docs = retriever.invoke(search_query)
             
         context = "\n---\n".join([d.page_content for d in docs])
         
-        # 4. Answer
-        final_answer = llm.invoke(f"Context:\n{context}\n\nQuestion: {user_question}").content
+        # 4. Answer with strict instruction
+        system_msg = "You are a specialized assistant. Answer ONLY using the provided Context. If the answer is not in the Context, say 'I cannot find that in the provided documents'."
+        final_answer = llm.invoke(f"System: {system_msg}\n\nContext:\n{context}\n\nQuestion: {user_question}").content
+        
         history.extend([{"role": "user", "content": user_question}, {"role": "assistant", "content": final_answer}])
         
         return {"answer": final_answer, "retrieved_context": [{"text": d.page_content, "source": d.metadata.get('file_name')} for d in docs]}
