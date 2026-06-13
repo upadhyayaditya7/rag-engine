@@ -81,7 +81,11 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         chosen_file = llm.invoke(choice_prompt).content.strip()
 
         # 3. Vector Search with Dynamic Filter
-        search_kwargs = {"k": 3, "fetch_k": 10, "lambda_mult": 0.5}
+        search_kwargs = {
+            "k": 6,           # Increased to retrieve more context
+            "fetch_k": 25,    # Larger candidate pool
+            "lambda_mult": 0.2 # Lowered from 0.5: This makes retrieval LESS diverse and MORE focused on the query
+        }
         if chosen_file in unique_files:
             search_kwargs["filter"] = {"file_name": chosen_file}
 
@@ -92,10 +96,10 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         
         # 4. Generate Response
         system_prompt = (
-    "You are a technical research assistant. Provide EXHAUSTIVE answers based ONLY on the context. "
-    "For 'Why' questions, you must explain the reasoning provided in the text. "
-    "Do not provide general knowledge, only what is found in the following context:\n\n"
-    f"{combined_context}\n\nQuestion: {user_question}"
+            "You are a Senior Technical Researcher. You must provide comprehensive, long-form answers.\n"
+            "If the question asks for a 'Why' or 'How', provide all details, reasons, and technical context found in the snippets.\n"
+            "DO NOT shorten or summarize your response. If a technical comparison or list of steps exists, include every single item.\n"
+            f"Context:\n{combined_context}\n\nQuestion: {user_question}"
         )
         final_answer = llm.invoke(system_prompt).content
 
