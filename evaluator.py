@@ -2,21 +2,29 @@ import os
 import sys
 import json
 import re
+import time
 from dotenv import load_dotenv
 
-# 1. Robust .env loading
+# Set up paths
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
+sys.path.append(basedir)
 
-if not os.getenv("GROQ_API_KEY"):
-    print("CRITICAL: GROQ_API_KEY is missing from your .env file.")
+# Import engine
+try:
+    from app.services.rag_engine import query_rag_system
+except ImportError:
+    print("Error: Could not import query_rag_system.")
     sys.exit(1)
 
-sys.path.append(basedir)
-from app.services.rag_engine import query_rag_system
+def clean_text(text):
+    """Normalize text for comparison."""
+    text = text.replace('Â·', '').replace('{', '').replace('}', '').replace('Ã…', 'a')
+    return re.sub(r'\s+', ' ', text).strip().lower()
 
 def run_evaluation():
-    test_file = 'qa_suite/test_cases.json'
+    test_file = os.path.join(basedir, 'qa_suite/test_cases.json')
+    
     if not os.path.exists(test_file):
         print(f"Error: {test_file} not found.")
         return
@@ -25,57 +33,46 @@ def run_evaluation():
         test_cases = json.load(f)
 
     print(f"\n--- Starting Evaluation: {len(test_cases)} Test Cases ---\n")
-
     passed_count = 0
-    
-    for case in test_cases:
-        print(f"Q: {case['question']}")
-        
-        # 2. Run the RAG Pipeline
-        response = query_rag_system(case['question'], session_id="eval_session")
-        
-        # Extract data: Handle dict or string response
-        actual_answer = response if isinstance(response, str) else response.get("answer", "")
-        context = response.get("retrieved_context", "No context provided") if isinstance(response, dict) else "No context"
-        
-        # Debugging: View retrieved context
-        print(f"DEBUG: Retrieved Context: {str(context)[:150]}...")
-        
-        # 4. Math & Fuzzy Comparison Logic
-        expected = case['expected_answer'].lower()
-        actual = actual_answer.lower()
-        
-        def clean(text):
-            return text.replace('Â·', '').replace('{', '').replace('}', '').replace('Ã…', 'a')
 
-        clean_expected = clean(expected)
-        clean_actual = clean(actual)
+    for i, case in enumerate(test_cases, 1):
+        question = case.get('question', 'N/A')
+        expected = clean_text(case.get('expected_answer', ''))
         
-        # Extract numbers using Regex
-        expected_nums = re.findall(r"[-+]?\d*\.\d+|\d+", clean_expected)
-        actual_nums = re.findall(r"[-+]?\d*\.\d+|\d+", clean_actual)
+        print(f"[{i}] Q: {question}")
         
-        # Comparison logic
+        # Run the RAG Pipeline
+        response = query_rag_system(question, session_id="eval_session")
+        
+        # Safely extract answer
+        actual_raw = response.get("answer", "") if isinstance(response, dict) else str(response)
+        actual = clean_text(actual_raw)
+        
+        # Evaluation Logic
+        expected_nums = re.findall(r"[-+]?\d*\.\d+|\d+", expected)
+        actual_nums = re.findall(r"[-+]?\d*\.\d+|\d+", actual)
+        
         if expected_nums:
             passed = all(num in actual_nums for num in expected_nums)
-            if not passed:
-                print(f"DEBUG: Math Mismatch -> Expected nums: {expected_nums}, Found in response: {actual_nums}")
         else:
-            expected_words = [w for w in clean_expected.split() if len(w) > 3]
+            expected_words = [w for w in expected.split() if len(w) > 3]
             if not expected_words:
-                passed = clean_expected in clean_actual
+                passed = expected in actual
             else:
-                matches = [w for w in expected_words if w in clean_actual]
-                passed = (len(matches) / len(expected_words)) >= 0.4
+                matches = [w for w in expected_words if w in actual]
+                passed = (len(matches) / len(expected_words)) >= 0.6
         
         status = "✅ PASS" if passed else "❌ FAIL"
-        if passed: 
-            passed_count += 1
+        if passed: passed_count += 1
         
-        print(f"Result: {status}")
-        print(f"Expected: {case['expected_answer']}")
-        print(f"Got:      {actual_answer[:100]}...") 
-        print("-" * 50)
+        print(f"Result:   {status}")
+        print(f"Expected: {expected}")
+        print(f"Got:      {actual[:100]}...")
+        print("-" * 60)
+        
+        # --- CRITICAL: RATE LIMIT PROTECTION ---
+        # A 3-second sleep ensures we stay within the Groq free tier limits.
+        time.sleep(3) 
 
     print(f"\n--- Evaluation Complete: {passed_count}/{len(test_cases)} Passed ---\n")
 

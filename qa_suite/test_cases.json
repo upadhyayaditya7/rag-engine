@@ -1,23 +1,27 @@
 [
   {
-    "id": 1,
-    "category": "Math",
-    "question": "What is the multiset difference P - Q if P = {4·a, 2·b, 5·c} and Q = {1·a, 3·b, 2·d}?",
-    "expected_answer": "{3·a, 5·c}",
-    "source_file": "Practice_sheet_for_End_Sem.pdf"
+    "category": "Intel Quartus Prime Simulation",
+    "question": "What are the essential steps to launch a simulation from the Intel Quartus Prime software after compilation is complete?",
+    "expected_answer": "Once compilation is complete, you launch the simulation by clicking 'Tools' > 'Run Simulation Tool' > 'RTL Simulation'. This action triggers the Intel Quartus Prime software to launch the ModelSim-Intel FPGA Edition simulator and run the 'testbench_1.v' file based on your pre-configured simulation settings."
   },
   {
-    "id": 2,
-    "category": "Quantum Mechanics",
-    "question": "What is the probability of finding a particle in a 20 Å box within the center 10 Å interval?",
-    "expected_answer": "0.81",
-    "source_file": "UNIT 2_practice_sheet.pdf"
+    "category": "Intel Quartus Prime Simulation",
+    "question": "If I modify the simulation testbench, what steps must I take before running it again?",
+    "expected_answer": "After modifying the 'testbench_1.v' file, you must first click 'Simulate' > 'Restart' in the ModelSim simulator to clear waveforms and reset simulation time. Then, click 'Simulate' > 'Run' > 'Run -all' to simulate the testbench again according to your changes."
   },
   {
-    "id": 3,
-    "category": "FPGA",
-    "question": "What is the purpose of the ModelSim - Intel FPGA Edition Simulation Quick-Start guide?",
-    "expected_answer": "To provide instructions on simulating designs using the Intel Quartus Prime Standard Edition EDA tool.",
-    "source_file": "ug_gs_msa_qii-683248-666396.pdf"
+    "category": "Marine Plastic Detection",
+    "question": "Why did the authors of the marine plastic detection study implement image augmentation?",
+    "expected_answer": "The authors implemented data augmentation procedures because finding a sufficiently large dataset of annotated marine plastic images was difficult. Increasing the number of images in the dataset was necessary to improve the training and accuracy of their deep learning models."
+  },
+  {
+    "category": "Marine Plastic Detection",
+    "question": "What specific TensorFlow methods were used for image augmentation in the marine plastic detection study?",
+    "expected_answer": "The study employed two augmentation methods using TensorFlow: 1) Keras Processing Layers, including 'tf.keras.layers.Resizing', 'Rescaling', 'RandomFlip', and 'RandomRotation' to modify image size and pixel values. 2) 'tf.image' methods, specifically 'tf.image.flip_left_right' to flip images, 'tf.image.rgb_to_greyscale' to convert images to grayscale, and 'tf.image.adjust_brightness' to modify brightness."
+  },
+  {
+    "category": "Marine Plastic Detection",
+    "question": "How do the YOLOv4 and YOLOv5 algorithms differ in their technical implementation?",
+    "expected_answer": "A key difference is that YOLOv5 utilizes a PyTorch implementation, whereas YOLOv4 is based on the Darknet framework. Additionally, YOLOv4 uses the CSPDarknet-53 backbone structure, while YOLOv5 is designed to be lightweight and extremely fast, with the 'v5s' model specifically chosen in this study for its small size and relatively higher accuracy."
   }
 ]
