@@ -1,117 +1,114 @@
 import os
 from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
-from langchain_experimental.text_splitter import SemanticChunker
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 
-# Setup file paths
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+# 1. Dynamically locate the project root
+# Assuming this file is at: .../RAG/app/services/rag_engine.py
+# We go up 2 levels from here to reach the RAG/ root directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# 2. Define paths relative to the project root
+# This works on your machine AND on any cloud server/GitHub environment
+DATA_DIR = os.path.join(BASE_DIR, "app", "data")
 DB_DIR = os.path.join(BASE_DIR, "chroma_db")
+print(f"DEBUG: Enforced Absolute DB_DIR: {DB_DIR}")
 
-# Initialize embedding model (cache it globally)
+# 3. Create the directories if they don't exist (prevents errors on new systems)
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(DB_DIR, exist_ok=True)
+
+# Print for your debugging verification
+print(f"DEBUG: Data Directory initialized at: {DATA_DIR}")
+print(f"DEBUG: Database Directory initialized at: {DB_DIR}")
+
 local_embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-
 sessions_chat_history = {}
 
 def initialize_rag_system():
-    """Optimized ingestion with two-pass chunking and safe DB management."""
+    print(f"DEBUG: Searching for data in: {DATA_DIR}") # <--- ADD THIS
     if not os.path.exists(DATA_DIR):
+        print(f"ERROR: Data directory not found at {DATA_DIR}")
         os.makedirs(DATA_DIR)
         return
 
-    # Initialize Client
+    # 2. Reset Database for a clean start
     vector_db = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
-    
-    # Safely clear old data without deleting the folder
     try:
         vector_db.delete_collection()
-        # Re-init after delete
-        vector_db = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
-    except:
-        pass
+        print("DEBUG: Existing collection deleted.")
+    except Exception as e:
+        print(f"DEBUG: No collection to delete or error: {e}")
+    
+    # 3. Re-initialize fresh
+    vector_db = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
 
-    # Load Docs
+    # 4. Load Docs with explicit logging
     raw_docs = []
     for loader_cls, glob in [(TextLoader, "**/*.txt"), (PyPDFLoader, "**/*.pdf")]:
         loader = DirectoryLoader(DATA_DIR, glob=glob, loader_cls=loader_cls)
         try:
             docs = loader.load()
+            print(f"DEBUG: Loader {loader_cls.__name__} found {len(docs)} documents.")
             for doc in docs:
                 doc.metadata["file_name"] = os.path.basename(doc.metadata.get('source', 'Unknown'))
             raw_docs.extend(docs)
         except Exception as e:
             print(f"Load Error: {e}")
 
-    if not raw_docs: return
+    if not raw_docs:
+        print("DEBUG: No documents found in data folder. Indexing aborted.")
+        return
 
-    # OPTIMIZATION: Two-pass chunking
-    # 1. Structural Split (Fast): Breaks into large, manageable blocks
-    struct_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=150)
-    struct_chunks = struct_splitter.split_documents(raw_docs)
-
-    # 2. Semantic Split (Refined): Only runs on 1500-char blocks
-    sem_splitter = SemanticChunker(
-        embeddings=local_embeddings,
-        breakpoint_threshold_type="percentile",
-        breakpoint_threshold_amount=95 
+    # 5. Robust Chunking
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, 
+        chunk_overlap=200,
+        separators=["\n\n", "\n", " ", ""]
     )
-    final_chunks = sem_splitter.split_documents(struct_chunks)
+    final_chunks = text_splitter.split_documents(raw_docs)
     
-    # 3. Batch Add
+    # 6. Add to Vector DB and force sync
     vector_db.add_documents(final_chunks)
-    print(f"Database indexed: {len(final_chunks)} chunks ready.")
+    
+    # Force persistence for some versions of Chroma
+    if hasattr(vector_db, 'persist'):
+        vector_db.persist()
+        
+    print(f"Database successfully indexed: {len(final_chunks)} chunks ready.")
 
 def query_rag_system(user_question: str, session_id: str = "default_user"):
     try:
         llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0.1)
-        history = sessions_chat_history.setdefault(session_id, [])
-
-        # 1. Contextualize
-        search_query = user_question
-        if history:
-            formatted_history = "\n".join([f"{msg['role'].upper()}: {msg['content']}" for msg in history[-2:]])
-            search_query = llm.invoke(f"History:\n{formatted_history}\n\nQuestion: {user_question}\n\nStandalone Question:").content.strip()
-
-        # 2. Librarian (Dynamic Discovery)
+        
+        # 1. Access the database globally
         vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
-        metadata_list = vector_store.get(include=['metadatas'])
-        unique_files = list(set(m.get('file_name') for m in metadata_list['metadatas'] if m.get('file_name')))
         
-        choice_prompt = f"Available files: {', '.join(unique_files)}\nTarget: {search_query}\nWhich file is relevant? Return ONLY the filename. If none are relevant, return 'NONE'."
-        chosen_file = llm.invoke(choice_prompt).content.strip()
-
-        # 3. Targeted Retrieval (The Fix)
-        # We define search_kwargs BEFORE initializing the retriever
-        search_kwargs = {"k": 6, "fetch_k": 20}
+        # 2. Perform a GLOBAL search across ALL files (k=10 to get diverse chunks)
+        # We removed the LLM Router and the 'filter' entirely.
+        print("DEBUG: Performing global similarity search...")
+        docs = vector_store.similarity_search(user_question, k=10)
         
-        # APPLY FILTER AT RETRIEVAL TIME: This ensures we only search the relevant file
-        if chosen_file in unique_files:
-            search_kwargs["filter"] = {"file_name": chosen_file}
-            print(f"DEBUG: Routing search to file: {chosen_file}")
-        else:
-            print("DEBUG: No specific file routed, searching entire collection.")
-
-        retriever = vector_store.as_retriever(search_type="mmr", search_kwargs=search_kwargs)
-        docs = retriever.invoke(search_query)
+        print(f"DEBUG: Retrieved {len(docs)} chunks from across all documents.")
+        for i, d in enumerate(docs):
+            print(f"DEBUG: Chunk {i} from {d.metadata.get('file_name')}: {d.page_content[:60]}...")
         
-        # Fallback: If no docs found in the specific file, try global search
-        if not docs and "filter" in search_kwargs:
-            print("DEBUG: No hits in target file, falling back to global search.")
-            retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 6})
-            docs = retriever.invoke(search_query)
-            
+        # 3. Compile context from all retrieved chunks
         context = "\n---\n".join([d.page_content for d in docs])
         
-        # 4. Answer with strict instruction
-        system_msg = "You are a specialized assistant. Answer ONLY using the provided Context. If the answer is not in the Context, say 'I cannot find that in the provided documents'."
+        # 4. Final Answer Generation
+        # The LLM now sees chunks from both the SANS paper and the ML book at the same time
+        system_msg = "You are a specialized assistant. Use the provided Context to synthesize an answer. If the answer is not present, say so."
         final_answer = llm.invoke(f"System: {system_msg}\n\nContext:\n{context}\n\nQuestion: {user_question}").content
         
-        history.extend([{"role": "user", "content": user_question}, {"role": "assistant", "content": final_answer}])
+        return {
+            "answer": final_answer, 
+            "retrieved_context": [{"text": d.page_content, "source": d.metadata.get('file_name')} for d in docs]
+        }
         
-        return {"answer": final_answer, "retrieved_context": [{"text": d.page_content, "source": d.metadata.get('file_name')} for d in docs]}
     except Exception as e:
-        print(f"RAG Error: {e}")
-        return {"answer": "Engine Error.", "retrieved_context": []}
+        import traceback
+        traceback.print_exc() # Print full error to help debug
+        return {"answer": "Engine Error: " + str(e), "retrieved_context": []}
