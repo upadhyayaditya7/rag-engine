@@ -1,27 +1,27 @@
 [
   {
-    "category": "Intel Quartus Prime Simulation",
-    "question": "What are the essential steps to launch a simulation from the Intel Quartus Prime software after compilation is complete?",
-    "expected_answer": "Once compilation is complete, you launch the simulation by clicking 'Tools' > 'Run Simulation Tool' > 'RTL Simulation'. This action triggers the Intel Quartus Prime software to launch the ModelSim-Intel FPGA Edition simulator and run the 'testbench_1.v' file based on your pre-configured simulation settings."
+    "category": "Machine Learning Theory",
+    "question": "What is the relationship between the hypothesis map, label, and loss in Jung's machine learning framework?",
+    "expected_answer": "A hypothesis map reads in low-level properties of a data point to compute predictions of a quantity of interest, referred to as the label. The loss then quantifies the discrepancy between these predicted labels and the actual observed values, which the system uses to continuously validate and refine the model."
   },
   {
-    "category": "Intel Quartus Prime Simulation",
-    "question": "If I modify the simulation testbench, what steps must I take before running it again?",
-    "expected_answer": "After modifying the 'testbench_1.v' file, you must first click 'Simulate' > 'Restart' in the ModelSim simulator to clear waveforms and reset simulation time. Then, click 'Simulate' > 'Run' > 'Run -all' to simulate the testbench again according to your changes."
+    "category": "Cybersecurity Strategy",
+    "question": "According to the SANS white paper, why is simply enriching technical indicators no longer sufficient for modern threat intelligence teams?",
+    "expected_answer": "Modern threat intelligence must go beyond enriching technical indicators to informing meaningful threat-based decisions that every business unit can use with confidence. Teams must expand their reach to stakeholders who have not interacted with them in the past and market their positive influence within the organization to continually build their profile."
   },
   {
-    "category": "Marine Plastic Detection",
-    "question": "Why did the authors of the marine plastic detection study implement image augmentation?",
-    "expected_answer": "The authors implemented data augmentation procedures because finding a sufficiently large dataset of annotated marine plastic images was difficult. Increasing the number of images in the dataset was necessary to improve the training and accuracy of their deep learning models."
+    "category": "Cybersecurity Strategy",
+    "question": "How does the SANS research define the 'intelligence-stakeholder gap' and what are the suggested organizational remedies?",
+    "expected_answer": "The gap is the disconnect between the threat intelligence team's output and the organization's understanding of that functional area. Remedies include annual strategic alignment workshops, defining intelligence requirements tied to enterprise objectives, and conducting maturity assessments tied to business impact."
   },
   {
-    "category": "Marine Plastic Detection",
-    "question": "What specific TensorFlow methods were used for image augmentation in the marine plastic detection study?",
-    "expected_answer": "The study employed two augmentation methods using TensorFlow: 1) Keras Processing Layers, including 'tf.keras.layers.Resizing', 'Rescaling', 'RandomFlip', and 'RandomRotation' to modify image size and pixel values. 2) 'tf.image' methods, specifically 'tf.image.flip_left_right' to flip images, 'tf.image.rgb_to_greyscale' to convert images to grayscale, and 'tf.image.adjust_brightness' to modify brightness."
+    "category": "Machine Learning Theory",
+    "question": "In Jung's framework, how does the scientific principle of trial and error function within a machine learning implementation?",
+    "expected_answer": "It consists of the continuous adaptation of a hypothesis about a phenomenon that generates data. Methods combine data, model, and loss within computationally efficient implementations to refine the model based on the loss incurred by its predictions."
   },
   {
-    "category": "Marine Plastic Detection",
-    "question": "How do the YOLOv4 and YOLOv5 algorithms differ in their technical implementation?",
-    "expected_answer": "A key difference is that YOLOv5 utilizes a PyTorch implementation, whereas YOLOv4 is based on the Darknet framework. Additionally, YOLOv4 uses the CSPDarknet-53 backbone structure, while YOLOv5 is designed to be lightweight and extremely fast, with the 'v5s' model specifically chosen in this study for its small size and relatively higher accuracy."
+    "category": "Cross-Domain Synthesis",
+    "question": "If you were to bridge the two domains, how would you apply Jung’s principle of 'data-model-loss' to the problem of cybersecurity risk reporting?",
+    "expected_answer": "Data would represent the threat intelligence outputs, the model would be the risk assessment framework that interprets these outputs, and the loss would represent the discrepancy between projected risk impact and actual realized business impact. This allows for a trial-and-error adaptation of risk reporting maturity."
   }
 ]

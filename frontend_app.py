@@ -31,7 +31,7 @@ with st.sidebar:
             try:
                 # Prepare file payload for Multipart Form Upload
                 files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
-                upload_response = requests.post(UPLOAD_URL, files=files, timeout=60)
+                upload_response = requests.post(UPLOAD_URL, files=files, timeout=300)
                 
                 if upload_response.status_code == 200:
                     st.success(f"{uploaded_file.name} successfully indexed!")
