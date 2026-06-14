@@ -6,6 +6,7 @@ from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from opentelemetry import context
+from rank_bm25 import BM25Okapi
 
 # 1. Dynamically locate the project root
 # Assuming this file is at: .../RAG/app/services/rag_engine.py
@@ -27,6 +28,8 @@ print(f"DEBUG: Data Directory initialized at: {DATA_DIR}")
 print(f"DEBUG: Database Directory initialized at: {DB_DIR}")
 
 local_embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+bm25_index = None
+final_chunks_global = None
 sessions_chat_history = {}
 
 def initialize_rag_system():
@@ -78,10 +81,20 @@ def initialize_rag_system():
     # Force persistence for some versions of Chroma
     if hasattr(vector_db, 'persist'):
         vector_db.persist()
+
+    global bm25_index, final_chunks_global
+    final_chunks_global = final_chunks
+    # Tokenize content for BM25
+    tokenized_corpus = [doc.page_content.lower().split() for doc in final_chunks]
+    bm25_index = BM25Okapi(tokenized_corpus)
+    print(f"DEBUG: BM25 index created with {len(final_chunks)} chunks.")
         
     print(f"Database successfully indexed: {len(final_chunks)} chunks ready.")
 
 def query_rag_system(user_question: str, session_id: str = "default_user"):
+    # Ensure we can access the global BM25 indexer
+    global bm25_index, final_chunks_global
+    
     try:
         # Use temperature=0 for maximum factual consistency
         llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0)
@@ -89,12 +102,19 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         # 1. Access the database
         vector_store = Chroma(persist_directory=DB_DIR, embedding_function=local_embeddings)
         
-        # 2. Perform global search
-        docs = vector_store.similarity_search(user_question, k=10)
-        context = "\n---\n".join([d.page_content for d in docs])
+        # 2. Perform Hybrid Search
+        # A: Vector Search (Semantic)
+        vector_docs = vector_store.similarity_search(user_question, k=5)
+        
+        # B: BM25 Search (Keyword)
+        tokenized_query = user_question.lower().split()
+        bm25_docs_content = bm25_index.get_top_n(tokenized_query, [d.page_content for d in final_chunks_global], n=5)
+        
+        # Combine into a unified context string
+        # This keeps your existing prompt format working perfectly
+        combined_context = "\n---\n".join([d.page_content for d in vector_docs] + bm25_docs_content)
         
         # 3. Define the STRICT grounding prompt
-        # This replaces the previous basic system_msg string
         system_prompt = """
 You are an expert technical analyst. 
 Follow these instructions precisely:
@@ -110,27 +130,34 @@ Follow these instructions precisely:
 Context: 
 {context}
 """
-        # Create the template
         prompt_template = ChatPromptTemplate.from_messages([
             ("system", system_prompt),
             ("human", "{question}"),
         ])
         
         # 4. Generate the final answer
-        # We inject the context and question into the strict template
-        formatted_prompt = prompt_template.format(context=context, question=user_question)
-        print(f"DEBUG: Context length: {len(context)}")
-        if len(context) < 50:
-            print("DEBUG: WARNING: Context is too small! Search might be failing.")
+        formatted_prompt = prompt_template.format(context=combined_context, question=user_question)
+        
+        print(f"DEBUG: Context length (Hybrid): {len(combined_context)}")
         final_answer = llm.invoke(formatted_prompt).content
         
-        # Returns the format expected by your eval scripts
+        # Return format maintained for your eval scripts
         return {
             "answer": final_answer, 
-            "retrieved_context": [{"text": d.page_content, "source": d.metadata.get('file_name')} for d in docs]
+            "retrieved_context": [{"text": combined_context, "source": "Hybrid Search"}]
         }
         
     except Exception as e:
         import traceback
         traceback.print_exc()
         return {"answer": "Engine Error: " + str(e), "retrieved_context": []}
+    
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("query", type=str, help="The question to ask.")
+    args = parser.parse_args()
+    
+    initialize_rag_system()
+    response = query_rag_system(args.query)
+    print(f"\nResult: {response['answer']}")
