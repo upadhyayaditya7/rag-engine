@@ -11,7 +11,11 @@ results = []
 for q in questions:
     print(f"Generating answer for: {q}")
     response = query_rag_system(q)
-    results.append({"question": q, "answer": response["answer"]})
+    results.append({
+        "question": q, 
+        "actual_answer": response["answer"],
+        "context": str(response["retrieved_context"]) 
+    })
 
 with open("eval_results.json", "w") as f:
     json.dump(results, f, indent=4)
