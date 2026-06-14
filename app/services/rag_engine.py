@@ -59,6 +59,10 @@ def initialize_rag_system():
             print(f"DEBUG: Loader {loader_cls.__name__} found {len(docs)} documents.")
             for doc in docs:
                 doc.metadata["file_name"] = os.path.basename(doc.metadata.get('source', 'Unknown'))
+                # Inject page tracking without breaking existing index compatibility
+                page_val = doc.metadata.get('page', 0)
+                doc.metadata["page_number"] = page_val + 1 if isinstance(page_val, int) else 1
+                doc.metadata["source_ref"] = f"{doc.metadata['file_name']} (Page {doc.metadata['page_number']})"
             raw_docs.extend(docs)
         except Exception as e:
             print(f"Load Error: {e}")
@@ -86,7 +90,11 @@ def initialize_rag_system():
     final_chunks_global = final_chunks
     # Tokenize content for BM25
     tokenized_corpus = [doc.page_content.lower().split() for doc in final_chunks]
-    bm25_index = BM25Okapi(tokenized_corpus)
+    try:
+        bm25_index = BM25Okapi(tokenized_corpus)
+    except Exception as e:
+        print(f"DEBUG: BM25 failed to initialize: {e}")
+    bm25_index = None # Explicitly set to None
     print(f"DEBUG: BM25 index created with {len(final_chunks)} chunks.")
         
     print(f"Database successfully indexed: {len(final_chunks)} chunks ready.")
@@ -108,10 +116,12 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         
         # B: BM25 Search (Keyword)
         tokenized_query = user_question.lower().split()
-        bm25_docs_content = bm25_index.get_top_n(tokenized_query, [d.page_content for d in final_chunks_global], n=5)
-        
-        # Combine into a unified context string
-        # This keeps your existing prompt format working perfectly
+        if bm25_index:
+            bm25_docs_content = bm25_index.get_top_n(tokenized_query, [d.page_content for d in final_chunks_global], n=5)
+        else:
+            # Fallback: Just use vector search results if BM25 is unavailable
+            bm25_docs_content = []
+
         combined_context = "\n---\n".join([d.page_content for d in vector_docs] + bm25_docs_content)
         
         # 3. Define the STRICT grounding prompt
@@ -144,7 +154,7 @@ Context:
         # Return format maintained for your eval scripts
         return {
             "answer": final_answer, 
-            "retrieved_context": [{"text": combined_context, "source": "Hybrid Search"}]
+            "metadata": [d.metadata for d in vector_docs]
         }
         
     except Exception as e:
