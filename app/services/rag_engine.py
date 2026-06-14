@@ -5,6 +5,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
+from opentelemetry import context
 
 # 1. Dynamically locate the project root
 # Assuming this file is at: .../RAG/app/services/rag_engine.py
@@ -95,11 +96,11 @@ def query_rag_system(user_question: str, session_id: str = "default_user"):
         # 3. Define the STRICT grounding prompt
         # This replaces the previous basic system_msg string
         system_prompt = """
-You are a specialized assistant for the provided documentation.
-CRITICAL INSTRUCTIONS:
-1. Use ONLY the provided context to answer the question.
-2. If the answer is not contained within the context, you MUST say "I do not have enough information to answer this based on the provided documents."
-3. Do not use your internal knowledge to answer questions.
+You are a strict documentation-based assistant. 
+Follow these instructions precisely:
+1. ANSWER ONLY using the provided "Context" below.
+2. If the answer is NOT present in the context, your ONLY allowed response is: "I do not have enough information to answer this based on the provided documents."
+3. ABSOLUTELY NO external knowledge is permitted. Even if you know the answer, do not use it.
 
 Context: 
 {context}
@@ -113,6 +114,9 @@ Context:
         # 4. Generate the final answer
         # We inject the context and question into the strict template
         formatted_prompt = prompt_template.format(context=context, question=user_question)
+        print(f"DEBUG: Context length: {len(context)}")
+        if len(context) < 50:
+            print("DEBUG: WARNING: Context is too small! Search might be failing.")
         final_answer = llm.invoke(formatted_prompt).content
         
         # Returns the format expected by your eval scripts
