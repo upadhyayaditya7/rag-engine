@@ -13,35 +13,54 @@ class RAGEngine:
         self.db_dir = os.path.join(os.getcwd(), db_dir)
         self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         self.llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0)
-        self.vector_store = Chroma(persist_directory=db_dir, embedding_function=self.embeddings)
+        self.vector_store = Chroma(persist_directory=self.db_dir, embedding_function=self.embeddings)
         self.bm25_index = None
         self.tokenized_corpus = None
         self.chunks = []
+        self.chunk_map = {}
 
     def initialize(self):
+        from langchain_core.documents import Document
+        
+        # Check if vector store is already populated
+        data = self.vector_store.get(include=['metadatas', 'documents'])
+        if data['documents']:
+            print("Database already exists. Rehydrating indices...")
+            # Reconstruct Document objects from Chroma data
+            self.chunks = [Document(page_content=doc, metadata=meta) 
+                           for doc, meta in zip(data['documents'], data['metadatas'])]
+            
+            # Rebuild the lookup map and BM25 index
+            self.chunk_map = {c.page_content.lower(): c for c in self.chunks}
+            self.tokenized_corpus = [c.page_content.lower().split() for c in self.chunks]
+            self.bm25_index = BM25Okapi(self.tokenized_corpus)
+            print(f"DEBUG: System Rehydrated with {len(self.chunks)} chunks.")
+            return
+
+        # 1. Load Data
         raw_docs = []
         for loader_cls, glob in [(TextLoader, "**/*.txt"), (PyPDFLoader, "**/*.pdf")]:
             loader = DirectoryLoader(self.data_dir, glob=glob, loader_cls=loader_cls)
             docs = loader.load()
-            
-            # Explicitly attach filename to metadata
             for doc in docs:
                 doc.metadata['file_name'] = os.path.basename(doc.metadata.get('source', 'unknown'))
             raw_docs.extend(docs)
         
-        # Ensure splitter is defined clearly at the function level
+        # 2. Split Data
         splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         self.chunks = splitter.split_documents(raw_docs)
         
-        # Indexing
+        # 3. Create Lookup Map
+        self.chunk_map = {c.page_content.lower(): c for c in self.chunks}
+        
+        # 4. Add to Vector Store (Only once!)
         self.vector_store.add_documents(self.chunks)
         
-        # Save corpus for BM25
+        # 5. Index for Hybrid Search
         self.tokenized_corpus = [c.page_content.lower().split() for c in self.chunks]
         self.bm25_index = BM25Okapi(self.tokenized_corpus)
         
         print(f"DEBUG: System Initialized with {len(self.chunks)} chunks.")
-        print(f"DEBUG: Sample chunk metadata: {self.chunks[0].metadata}")
 
     def query(self, user_question: str):
         # 1. Similarity Search (Returns list of Document objects)
@@ -57,10 +76,10 @@ class RAGEngine:
             # Map tokenized matches back to original Document objects
             # We use a set of strings to quickly identify original chunks
             for tokens in top_matches:
-                for doc in self.chunks:
-                    if doc.page_content.lower().split() == tokens:
-                        bm25_docs.append(doc)
-                        break
+                content = " ".join(tokens).lower()
+                if content in self.chunk_map:
+                    bm25_docs.append(self.chunk_map[content])
+                
 
         # 3. Consolidate and Deduplicate
         # Use a dictionary to keep unique documents by page_content
