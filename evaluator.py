@@ -4,6 +4,7 @@ import json
 import re
 import time
 from dotenv import load_dotenv
+from app.utils.logger import ResultLogger
 
 # Set up paths
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -34,6 +35,12 @@ embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 # Instantiate the engine
 engine = RAGEngine(DATA_DIR, DB_DIR)
 engine.initialize()
+
+# Initialize engine and logger
+engine = RAGEngine(DATA_DIR, DB_DIR)
+engine.initialize()
+
+logger = ResultLogger(log_file="qa_audit_report.json") # This creates/updates your audit file
 
 def run_evaluation():
     test_file = os.path.join(basedir, 'qa_suite/test_cases.json')
@@ -85,6 +92,7 @@ def run_evaluation():
         
         # Require both content match AND source grounding for a PASS
         status = "✅ PASS" if (passed and has_source) else "❌ FAIL"
+        logger.log(question, expected, actual, (passed and has_source), source_names)
         if passed and has_source: passed_count += 1
         
         print(f"Result:   {status} (Grounded: {has_source})")
