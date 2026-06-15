@@ -10,9 +10,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 sys.path.append(basedir)
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "app", "data")
+DB_DIR = os.path.join(BASE_DIR, "chroma_db")
+
 # Import engine
 try:
-    from app.services.rag_engine import query_rag_system
+    from app.services.rag_engine import RAGEngine
 except ImportError:
     print("Error: Could not import query_rag_system.")
     sys.exit(1)
@@ -21,6 +25,15 @@ def clean_text(text):
     """Normalize text for comparison."""
     text = text.replace('Â·', '').replace('{', '').replace('}', '').replace('Ã…', 'a')
     return re.sub(r'\s+', ' ', text).strip().lower()
+
+# Assuming you have these defined at the top of your evaluator.py
+from app.services.rag_engine import RAGEngine
+from langchain_huggingface import HuggingFaceEmbeddings
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+# Instantiate the engine
+engine = RAGEngine(DATA_DIR, DB_DIR)
+engine.initialize()
 
 def run_evaluation():
     test_file = os.path.join(basedir, 'qa_suite/test_cases.json')
@@ -42,7 +55,7 @@ def run_evaluation():
         print(f"[{i}] Q: {question}")
         
         # Run the RAG Pipeline
-        response = query_rag_system(question, session_id="eval_session")
+        response = engine.query(question)
         
         # Safely extract answer AND metadata
         actual_raw = response.get("answer", "") if isinstance(response, dict) else str(response)
