@@ -4,21 +4,21 @@ import gc
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
-# Import engine functions
-from app.services.rag_engine import query_rag_system, initialize_rag_system, sessions_chat_history
+from app.services.rag_engine import RAGEngine
 
 app = FastAPI(title="Memory-Aware Company RAG API")
 
 # --- CENTRALIZED PATH CONFIGURATION ---
-# This file is in 'app/', so BASE_DIR is the parent 'RAG/' folder
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "app", "data") # Pointing explicitly to app/data
+DATA_DIR = os.path.join(BASE_DIR, "app", "data")
 DB_DIR = os.path.join(BASE_DIR, "chroma_db")
 
-# Ensure directories exist at startup
+# Ensure directories exist
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(DB_DIR, exist_ok=True)
+
+# Instantiate the engine
+engine = RAGEngine(DATA_DIR, DB_DIR)
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,9 +31,7 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     print(f"--- System Initialization ---")
-    print(f"Data Path: {DATA_DIR}")
-    print(f"DB Path: {DB_DIR}")
-    initialize_rag_system()
+    engine.initialize()
 
 class QueryRequest(BaseModel):
     question: str
@@ -45,7 +43,8 @@ def home():
 
 @app.post("/query")
 def handle_query(request: QueryRequest):
-    result = query_rag_system(request.question, session_id=request.session_id)
+    # Using the engine instance correctly
+    result = engine.query(request.question)
     if isinstance(result, str) and "Error" in result:
         raise HTTPException(status_code=500, detail=result)
     return result
@@ -53,17 +52,12 @@ def handle_query(request: QueryRequest):
 @app.post("/api/upload")
 async def upload_file(file: UploadFile = File(...)):
     try:
-        # Save file directly into the synced app/data directory
         file_path = os.path.join(DATA_DIR, file.filename)
-        
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
-        print(f"\n[SUCCESS] Saved file to: {file_path}")
-        
-        # Force GC to release file handles before re-indexing
         gc.collect()
-        initialize_rag_system()
+        engine.initialize()
         
         return {"status": "success", "message": f"Uploaded and indexed {file.filename}"}
     except Exception as e:
@@ -76,7 +70,7 @@ def reset_database():
         if os.path.exists(DB_DIR):
             shutil.rmtree(DB_DIR)
             os.makedirs(DB_DIR)
-        initialize_rag_system()
+        engine.initialize()
         return {"status": "success", "message": "Database reset successfully."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Database reset failed: {str(e)}")

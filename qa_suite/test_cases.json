@@ -1,27 +1,32 @@
 [
   {
-    "category": "Machine Learning Theory",
-    "question": "What is the relationship between the hypothesis map, label, and loss in Jung's machine learning framework?",
-    "expected_answer": "A hypothesis map reads in low-level properties of a data point to compute predictions of a quantity of interest, referred to as the label. The loss then quantifies the discrepancy between these predicted labels and the actual observed values, which the system uses to continuously validate and refine the model."
+    "category": "Sustainable Development",
+    "is_negative": false,
+    "question": "What are the most promising niches for future research in India's sustainable development initiatives according to the research paper?",
+    "expected_answer": "The most promising niches identified are Gender Equality, Reduction in Inequality, Peace and Justice, and Responsible Consumption and Production."
+  },
+  {
+    "category": "Network Engineering",
+    "is_negative": true,
+    "question": "How does the iVNE-CBS algorithm improve upon the original VNE-CBS approach by borrowing techniques from the Multi-Agent Path Finding domain?",
+    "expected_answer": "The provided documents do not contain information regarding the iVNE-CBS algorithm."
   },
   {
     "category": "Cybersecurity Strategy",
+    "is_negative": false,
     "question": "According to the SANS white paper, why is simply enriching technical indicators no longer sufficient for modern threat intelligence teams?",
-    "expected_answer": "Modern threat intelligence must go beyond enriching technical indicators to informing meaningful threat-based decisions that every business unit can use with confidence. Teams must expand their reach to stakeholders who have not interacted with them in the past and market their positive influence within the organization to continually build their profile."
+    "expected_answer": "Teams must move beyond enriching indicators to informing meaningful threat-based decisions that business units can use, expanding their reach to new stakeholders, and marketing their positive influence."
   },
   {
-    "category": "Cybersecurity Strategy",
-    "question": "How does the SANS research define the 'intelligence-stakeholder gap' and what are the suggested organizational remedies?",
-    "expected_answer": "The gap is the disconnect between the threat intelligence team's output and the organization's understanding of that functional area. Remedies include annual strategic alignment workshops, defining intelligence requirements tied to enterprise objectives, and conducting maturity assessments tied to business impact."
-  },
-  {
-    "category": "Machine Learning Theory",
-    "question": "In Jung's framework, how does the scientific principle of trial and error function within a machine learning implementation?",
-    "expected_answer": "It consists of the continuous adaptation of a hypothesis about a phenomenon that generates data. Methods combine data, model, and loss within computationally efficient implementations to refine the model based on the loss incurred by its predictions."
+    "category": "Negative Inference",
+    "is_negative": true,
+    "question": "Based on the SANS white paper, what specific strategies does the author suggest for improving sustainable water management (SDG 6) in rural India?",
+    "expected_answer": "The document does not contain information regarding SDG 6 or sustainable water management in rural India."
   },
   {
     "category": "Cross-Domain Synthesis",
-    "question": "If you were to bridge the two domains, how would you apply Jung’s principle of 'data-model-loss' to the problem of cybersecurity risk reporting?",
-    "expected_answer": "Data would represent the threat intelligence outputs, the model would be the risk assessment framework that interprets these outputs, and the loss would represent the discrepancy between projected risk impact and actual realized business impact. This allows for a trial-and-error adaptation of risk reporting maturity."
+    "is_negative": false,
+    "question": "If a cybersecurity team were to adopt the 'Unified Risk Intelligence' framework, how could they use it to justify funding for a 'Sustainable Tech' initiative?",
+    "expected_answer": "They can align the initiative's goals with relevant SDGs (like SDG 9 or 12), conduct a risk assessment using the framework to identify threats like data breaches or environmental impacts, and justify funding by presenting the initiative as a risk management strategy that enhances organizational resilience."
   }
 ]
