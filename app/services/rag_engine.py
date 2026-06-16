@@ -42,7 +42,7 @@ class RAGEngine:
             # Add metadata
             for doc in self.chunks:
                 doc.metadata['file_name'] = os.path.basename(doc.metadata.get('source', 'unknown'))
-            
+                print(f"DEBUG: Chunk metadata: {doc.metadata}")
             self.vector_store.add_documents(self.chunks)
             print(f"Indexed {len(self.chunks)} chunks.")
 
@@ -65,8 +65,15 @@ class RAGEngine:
         bm25_docs = []
         if self.bm25_index:
             query_tokens = user_question.lower().split()
-            bm25_docs = self.bm25_index.get_top_n(query_tokens, self.chunks, n=5)
-                
+            if filter_dict:
+                filename_to_match = filter_dict.get('file_name')
+                filtered_chunks = [c for c in self.chunks if c.metadata.get('file_name') == filename_to_match]
+                temp_tokenized = [c.page_content.lower().split() for c in filtered_chunks]
+                temp_bm25 = BM25Okapi(temp_tokenized)
+                bm25_docs = temp_bm25.get_top_n(query_tokens, filtered_chunks, n=5)
+            else:
+                bm25_docs = self.bm25_index.get_top_n(query_tokens, self.chunks, n=5)
+
         # 3. Combine and Deduplicate
         combined_docs = {d.page_content: d for d in (vector_docs + bm25_docs)}.values()
         

@@ -1,25 +1,36 @@
 import sys
 import os
 
-# Force Python to look in the current directory
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+# Point to the directory
+module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'app', 'services'))
+sys.path.insert(0, module_path)
 
-# Now import the components
-from rag_engine import initialize_rag_system, query_rag_system
+# Import the class instead of the functions
+from rag_engine import RAGEngine
 
 def run_test():
     print("--- Starting Hybrid Retrieval Test ---")
     
-    # 1. Initialize
-    initialize_rag_system()
+    # Instantiate the engine (you might need to adjust data_dir/db_dir paths)
+    engine = RAGEngine(data_dir="app/data", db_dir="app/db")
+    engine.initialize()
     
-    # 2. Run a specific test query
-    test_question = "What is the primary objective of this project?" 
-    
-    result = query_rag_system(test_question)
-    
-    print("\n--- Test Results ---")
-    print(f"Answer: {result['answer']}")
+    # Test 1: Blind query
+    print("\nRunning blind query...")
+    res1 = engine.query("What is the primary objective of this project?")
+    print(f"Answer: {res1['answer']}")
+
+    # Test 2: Filtered query
+    print("\nRunning filtered query (forcing SANS paper)...")
+    filter_val = {"file_name": "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"}
+    res2 = engine.query("What is the primary objective of this project?", filter_dict=filter_val)
+    print(f"Answer: {res2['answer']}")
+
+    # Verification
+    expected_file = "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+    for meta in res2['metadata']:
+        assert meta.get('file_name') == expected_file, f"Filter failed! Expected {expected_file} but got {meta.get('file_name')}"
+    print("\n✅ Filtered Query Test: PASS")
 
 if __name__ == "__main__":
     run_test()
