@@ -1,50 +1,62 @@
 [
   {
-    "category": "Sustainable Development",
+    "category": "Virtual Network Embedding",
     "is_negative": false,
-    "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
-    "expected_answer": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production."
+    "question": "What is the key difference between the backbone architectures of YOLOv4 and YOLOv5 as discussed in the marine plastic research?",
+    "expected_answer": "YOLOv4 utilizes the CSPDarknet-53 backbone, while YOLOv5 also uses a CSP structure but is optimized for a smaller, lightweight model size which significantly increases inference speed."
+  },
+  {
+    "category": "Marine Plastic Detection",
+    "is_negative": false,
+    "question": "What specific image augmentation techniques were used to expand the dataset for marine plastic detection?",
+    "expected_answer": "Procedures included flipping, rotating, color correction, adjusting brightness, and converting images to grayscale to simulate various marine plastic conditions."
+  },
+  {
+    "category": "Threat Intelligence",
+    "is_negative": false,
+    "question": "How does the SANS paper suggest threat intelligence teams overcome the 'It's too expensive' pushback from executives?",
+    "expected_answer": "Teams should demonstrate the cost savings of risk avoidance, show the financial impact of not having an active threat intelligence function, and utilize cost-effective OSINT tools."
+  },
+  {
+    "category": "Threat Intelligence",
+    "is_negative": false,
+    "question": "Why is it important for threat intelligence teams to move beyond just producing technical reports?",
+    "expected_answer": "To bridge the Intelligence-Stakeholder Gap, teams must ensure their outputs are relevant to senior stakeholders' business risk priorities rather than just providing purely technical data."
+  },
+  {
+    "category": "Sustainable Development In India",
+    "is_negative": false,
+    "question": "How does the Brundtland report define sustainable development according to the provided paper?",
+    "expected_answer": "It defines sustainable development as development that meets the needs of the present without compromising the ability of future generations to meet their own needs."
   },
   {
     "category": "Virtual Network Embedding",
-    "is_negative": false,
-    "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
-    "expected_answer": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS)."
-  },
-  {
-    "category": "Marine Plastic Detection",
-    "is_negative": false,
-    "question": "What deep learning algorithms were investigated in the marine plastic detection paper for identifying plastics in epipelagic layers?",
-    "expected_answer": "The paper investigated the YOLO v4 and YOLO v5 deep learning object detection algorithms for detecting and identifying marine plastics."
-  },
-  {
-    "category": "Threat Intelligence",
-    "is_negative": false,
-    "question": "What is the 'Intelligence-Stakeholder Gap' identified in the SANS white paper?",
-    "expected_answer": "It is the core problem where threat intelligence teams struggle to demonstrate their value because their technical outputs are often not on the radar of senior stakeholders, limiting their influence and resource growth."
-  },
-  {
-    "category": "Threat Intelligence",
-    "is_negative": false,
-    "question": "According to the SANS white paper, what are the three categorized types of threat intelligence outputs?",
-    "expected_answer": "The three types are Strategic Intelligence, Operational Intelligence, and Tactical Intelligence."
-  },
-  {
-    "category": "Sustainable Development",
     "is_negative": true,
-    "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
-    "expected_answer": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation."
+    "question": "Does the VNE paper propose the use of reinforcement learning to solve the virtual network embedding problem?",
+    "expected_answer": "No, the paper focuses on adapting the Conflict-Based Search (CBS) framework and algorithms like VNE-CBS and iVNE-CBS, not reinforcement learning."
   },
   {
     "category": "Marine Plastic Detection",
     "is_negative": true,
-    "question": "Does the research paper on marine plastic detection mention the use of satellite imagery for real-time monitoring of deep-sea trenches?",
-    "expected_answer": "No, the paper focuses on detecting plastics in epipelagic layers using drone-captured or ocean-surface images, not deep-sea trenches."
+    "question": "Does the marine plastic paper claim that YOLOv5 is significantly faster than YOLOv4 in all testing scenarios?",
+    "expected_answer": "No, the paper notes that while YOLOv5-S is lightweight and fast, some studies show accuracy vs. speed trade-offs depending on specific configurations and UAV landing spot detection tasks."
+  },
+  {
+    "category": "Threat Intelligence",
+    "is_negative": true,
+    "question": "Does the SANS paper advocate for replacing all human analysts with automated threat detection software?",
+    "expected_answer": "No, the paper emphasizes the importance of the threat intelligence function's influence and the need for human analysts to effectively communicate risks to stakeholders."
   },
   {
     "category": "Cross-Domain Synthesis",
     "is_negative": false,
-    "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
-    "expected_answer": "Efficiency strategies from VNE—like maximizing resource utilization and managing physical constraints—could be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network."
+    "question": "How could deep learning object detection methods from the marine plastic paper be adapted for the sustainable development goals mentioned in the India-focused paper?",
+    "expected_answer": "Techniques like YOLO object detection could be applied to monitor natural resource degradation or waste management compliance, directly supporting the SDG goal of responsible consumption and production."
+  },
+  {
+    "category": "Cross-Domain Synthesis",
+    "is_negative": false,
+    "question": "What is the common role of 'efficiency' in both the VNE research and the SANS threat intelligence white paper?",
+    "expected_answer": "In VNE, efficiency refers to optimizing physical resource allocation for network traffic. In the SANS paper, efficiency refers to the strategic allocation of an organization's intelligence resources to maximize business value and risk mitigation."
   }
 ]

@@ -1865,5 +1865,190 @@
         "sources": [
             "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
         ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:29.337094",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper on sustainable development in India, the four most promising niches for future research are:\n\n1. Poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as \"futuristic niches in social problems\" in the paper, indicating that they have sufficient gaps in existing research and offer ample scope for research in this area.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:32.510964",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "Based on the provided context, the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. **VNE-CBS (Virtual Network Embedding Conflict-Based Search)**: This algorithm uses a high-level search and a low-level search to resolve conflicts caused by resource contentions in the VNE problem.\n2. **Improved VNE-CBS (iVNE-CBS)**: This is an improved version of the VNE-CBS algorithm, which significantly outperforms VNE-CBS in solving the VNE problem.\n\nThe VNE-CBS algorithm is described as follows:\n\n- **High-level search**: A best-first search on a Conflict Tree (CT) that resolves conflicts caused by resource contentions.\n- **Low-level search**: A pathfinding algorithm on the augmented graph that allocates resources to each VNR vertex and VNR edge under the constraints imposed by a high-level search node.\n\nThe iVNE-CBS algorithm is an improved version of VNE-CBS, which incorporates powerful algorithmic techniques such as disjoint splitting, bypassing conflicts, and conflict avoidance tables to efficiently solve the VNE problem.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf",
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:35.163577",
+        "question": "What deep learning algorithms were investigated in the marine plastic detection paper for identifying plastics in epipelagic layers?",
+        "expected": "The paper investigated the YOLO v4 and YOLO v5 deep learning object detection algorithms for detecting and identifying marine plastics.",
+        "actual": "Based on the provided context, the deep learning algorithms investigated in the marine plastic detection paper for identifying plastics in epipelagic layers are:\n\n1. YOLO v4 (You Only Look Once version 4)\n2. YOLO v5 (You Only Look Once version 5)\n\nThese object detection algorithms were used to identify and detect marine plastics in the epipelagic layers of water bodies, with the goal of aiding in their removal.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:37.901543",
+        "question": "What is the 'Intelligence-Stakeholder Gap' identified in the SANS white paper?",
+        "expected": "It is the core problem where threat intelligence teams struggle to demonstrate their value because their technical outputs are often not on the radar of senior stakeholders, limiting their influence and resource growth.",
+        "actual": "The 'Intelligence-Stakeholder Gap' identified in the SANS white paper refers to the disconnect between the type of intelligence produced by a threat intelligence team and the needs and understanding of their stakeholders within the organization. This gap occurs when the intelligence team produces outputs that are not aligned with the requirements and expectations of their stakeholders, leading to a lack of understanding and utilization of the intelligence produced.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:40.507514",
+        "question": "According to the SANS white paper, what are the three categorized types of threat intelligence outputs?",
+        "expected": "The three types are Strategic Intelligence, Operational Intelligence, and Tactical Intelligence.",
+        "actual": "According to the SANS white paper, the three categorized types of threat intelligence outputs are:\n\n1. **Strategic Intelligence**: High-level human-consumable reports about threats affecting the larger organization, intended for high-level operational and strategic decision makers in the organization, such as a board of directors, senior leaders, and enterprise risk leaders.\n\n2. **Operational Intelligence**: Outputs for managers of \u201chands to keyboard\u201d teams such as IT and physical security, risk managers, and other operational teams, providing actionable information to facilitate their work.\n\n3. **Tactical Intelligence**: Outputs for tactical teams, providing detailed, actionable information to support immediate decision-making and response to threats.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:42.751962",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "The paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. However, it does mention the Nationally Determined Contributions (NDC) targets, which are part of the Paris Agreement, an international climate agreement.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:45.011842",
+        "question": "Does the research paper on marine plastic detection mention the use of satellite imagery for real-time monitoring of deep-sea trenches?",
+        "expected": "No, the paper focuses on detecting plastics in epipelagic layers using drone-captured or ocean-surface images, not deep-sea trenches.",
+        "actual": "Based on the provided research paper, it does not explicitly mention the use of satellite imagery for real-time monitoring of deep-sea trenches. The paper focuses on using deep learning techniques for detecting marine plastics in images and real-time camera feeds, but it does not discuss satellite imagery or deep-sea trenches.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:50:48.119207",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, the resource allocation efficiency strategies from the VNE (Virtual Network Embedding) paper can be conceptually applied to improve sustainable development initiatives in India by focusing on the following promising niches:\n\n1. **Decent Work and Economic System**: The VNE paper's resource allocation efficiency strategies can be applied to optimize the allocation of resources in India's economic system, promoting decent work and reducing inequality. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing waste, and increasing productivity.\n2. **Industry, Innovation, and Infrastructure**: The VNE paper's strategies can be applied to optimize the allocation of resources in India's industrial and infrastructure sectors, promoting innovation and reducing waste. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing energy consumption, and increasing the use of renewable energy sources.\n3. **Partnerships to Achieve Goals**: The VNE paper's strategies can be applied to optimize the allocation of resources among partnerships working towards sustainable development goals in India. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing transaction costs, and increasing collaboration among partners.\n\nTo apply these strategies, the following steps can be taken:\n\n1. Identify the key stakeholders and partnerships involved in sustainable development initiatives in India.\n2. Analyze the resource allocation patterns and inefficiencies in the current system.\n3. Develop and implement virtual networks that optimize resource allocation, reduce waste, and increase productivity.\n4. Monitor and evaluate the effectiveness of the implemented strategies and make necessary adjustments.\n\nBy applying the resource allocation efficiency strategies from the VNE paper to these promising niches, India can improve its sustainable development initiatives, reduce inequality, and promote decent work and economic growth.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:17.630311",
+        "question": "What is the key difference between the backbone architectures of YOLOv4 and YOLOv5 as discussed in the marine plastic research?",
+        "expected": "YOLOv4 utilizes the CSPDarknet-53 backbone, while YOLOv5 also uses a CSP structure but is optimized for a smaller, lightweight model size which significantly increases inference speed.",
+        "actual": "Based on the provided context, the key difference between the backbone architectures of YOLOv4 and YOLOv5 is not explicitly mentioned. However, it is mentioned that YOLOv5 utilizes PyTorch implementation, which is different from the prior releases of YOLOv4.\n\nHowever, I can infer that the backbone architecture of YOLOv4 is based on the Darknet-53 architecture, which is a modified version of the ResNet-50 architecture. On the other hand, the backbone architecture of YOLOv5 is based on the CSP (Cross Stage Partial) architecture, which is a more recent and efficient architecture.\n\nTherefore, the key difference between the backbone architectures of YOLOv4 and YOLOv5 is the use of different architectures, with YOLOv4 using Darknet-53 and YOLOv5 using CSP.",
+        "passed": false,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:20.517345",
+        "question": "What specific image augmentation techniques were used to expand the dataset for marine plastic detection?",
+        "expected": "Procedures included flipping, rotating, color correction, adjusting brightness, and converting images to grayscale to simulate various marine plastic conditions.",
+        "actual": "Based on the provided context, the specific image augmentation techniques used to expand the dataset for marine plastic detection are:\n\n1. Flipping: The images were flipped to create new variations.\n2. Rotation: The images were rotated to create new angles and orientations.\n3. Colour correction: The images were colour corrected to mimic marine plastics images.\n4. Resizing: The images were resized using tf.keras.layers.Resizing.\n5. Rescaling: The pixel values were resized using tf.keras.layers.Rescaling.\n\nThese techniques were implemented using TensorFlow and Keras Processing Layers to increase the number of images in the dataset, ultimately resulting in a dataset of 4000 images, divided into 80% for training and 20% for testing.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:23.304511",
+        "question": "How does the SANS paper suggest threat intelligence teams overcome the 'It's too expensive' pushback from executives?",
+        "expected": "Teams should demonstrate the cost savings of risk avoidance, show the financial impact of not having an active threat intelligence function, and utilize cost-effective OSINT tools.",
+        "actual": "According to the SANS paper, to overcome the 'It's too expensive' pushback from executives, threat intelligence teams can:\n\n1. Showcase what could have happened if the threat intelligence team was not active, and how that could have negatively affected the organization strategically and financially.\n2. Tie intelligence requirements to compliance requirements to demonstrate adherence and the cost savings associated with avoiding penalties or fines.\n3. Position intelligence as risk avoidance and cost containment by working with risk management teams to understand the cost of a realized risk scenario.\n4. Make reports more relevant by showing how intelligence reduces uncertainty and helps decision-making and prioritization.\n5. Showcase decisions that were influenced by threat intelligence and the estimated cost savings based on those decisions.\n6. Connect intelligence to performance, resilience, and reputation across all lines of business to demonstrate the team's value and influence across multiple functional areas.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:26.031598",
+        "question": "Why is it important for threat intelligence teams to move beyond just producing technical reports?",
+        "expected": "To bridge the Intelligence-Stakeholder Gap, teams must ensure their outputs are relevant to senior stakeholders' business risk priorities rather than just providing purely technical data.",
+        "actual": "Based on the context, the question asks why it's essential for threat intelligence teams to move beyond producing technical reports. \n\nThe importance of moving beyond technical reports lies in the need to bridge the Intelligence\u2013Stakeholder Gap. This gap occurs when threat intelligence teams produce valuable information, but it fails to resonate with senior stakeholders. \n\nTo address this issue, threat intelligence teams must shift their focus from solely producing technical reports to creating outputs that are high-level, strategic, and relevant to various stakeholders. This includes:\n\n1. Showcasing how threat intelligence reduces uncertainty and informs decision-making and prioritization.\n2. Highlighting decisions influenced by threat intelligence and estimated cost savings.\n3. Connecting threat intelligence to performance, resilience, and reputation across multiple business lines.\n\nBy doing so, threat intelligence teams can demonstrate their value, increase visibility, and gain executive support, ultimately allowing them to expand their scope of services and prove their worth within the organization.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:28.621494",
+        "question": "How does the Brundtland report define sustainable development according to the provided paper?",
+        "expected": "It defines sustainable development as development that meets the needs of the present without compromising the ability of future generations to meet their own needs.",
+        "actual": "According to the provided paper, the Brundtland report defines sustainable development as \"development that meets the needs of the present without compromising the ability of future generations to meet their own needs.\"",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:30.818449",
+        "question": "Does the VNE paper propose the use of reinforcement learning to solve the virtual network embedding problem?",
+        "expected": "No, the paper focuses on adapting the Conflict-Based Search (CBS) framework and algorithms like VNE-CBS and iVNE-CBS, not reinforcement learning.",
+        "actual": "Based on the provided context, the answer to the question is:\n\nNo, the VNE paper does not propose the use of reinforcement learning to solve the virtual network embedding problem.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:33.198812",
+        "question": "Does the marine plastic paper claim that YOLOv5 is significantly faster than YOLOv4 in all testing scenarios?",
+        "expected": "No, the paper notes that while YOLOv5-S is lightweight and fast, some studies show accuracy vs. speed trade-offs depending on specific configurations and UAV landing spot detection tasks.",
+        "actual": "Based on the provided context, the marine plastic paper does not claim that YOLOv5 is significantly faster than YOLOv4 in all testing scenarios. \n\nHowever, it does mention that YOLOv5-S showed significant improvements in precision, mAP, F1-score, and inference speed when compared to YOLOv4. Specifically, the best-performing model was YOLOv5 with an inference speed of 2.1 milliseconds/img. \n\nTherefore, the answer to the question is that YOLOv5 is not significantly faster than YOLOv4 in all testing scenarios, but it does show improvements in certain scenarios, particularly with the YOLOv5-S model.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:35.569113",
+        "question": "Does the SANS paper advocate for replacing all human analysts with automated threat detection software?",
+        "expected": "No, the paper emphasizes the importance of the threat intelligence function's influence and the need for human analysts to effectively communicate risks to stakeholders.",
+        "actual": "Based on the provided context, the SANS paper does not advocate for replacing all human analysts with automated threat detection software. \n\nThe paper focuses on bridging the gap between threat intelligence and business risk, and aligning threat intelligence with governance and control frameworks to strengthen the narrative to senior stakeholders and risk management teams. It suggests using threat intelligence to provide senior leaders with clear views of both potential and realized risks, and to guide the threat intelligence function to grow in influence across every aspect of the organization.\n\nThere is no mention of replacing human analysts with automated threat detection software. Instead, the paper emphasizes the importance of a tightly run threat intelligence program governed through strong frameworks and standards, such as NIST SP 800-53 Rev 5 and ISO 27001 Annex A.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf",
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:38.728807",
+        "question": "How could deep learning object detection methods from the marine plastic paper be adapted for the sustainable development goals mentioned in the India-focused paper?",
+        "expected": "Techniques like YOLO object detection could be applied to monitor natural resource degradation or waste management compliance, directly supporting the SDG goal of responsible consumption and production.",
+        "actual": "Based on the context of the paper, which focuses on using deep learning object detection methods to identify and remove marine plastics, I would identify the following sustainable development goals (SDGs) mentioned in the India-focused paper that could be adapted:\n\n1. **SDG 14.1: Prevent and significantly reduce marine pollution of all kinds, in particular from land-based activities, including marine debris and litter** - The paper aims to utilize deep learning algorithms to identify ocean plastics, which aligns with this goal.\n2. **SDG 14.4: By 2025, achieve a 30 per cent reduction in marine pollution from land-based activities** - The proposed method of using deep learning object detection could aid in achieving this goal by efficiently identifying and removing marine plastics.\n3. **SDG 13.1: Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries** - The removal of marine plastics could help mitigate the impact of climate-related hazards, such as ocean acidification and marine debris accumulation, which can affect coastal communities and ecosystems.\n\nTo adapt these SDGs, the deep learning object detection methods from the marine plastic paper could be applied in the following ways:\n\n* **Zone-based monitoring**: Implementing the YOLO v4 and YOLO v5 algorithms in zones across the world's oceans to identify and remove plastics in real-time.\n* **Real-time monitoring**: Utilizing the deep learning object detection methods to monitor ocean plastics in real-time, enabling swift action to prevent further pollution.\n* **Data-driven decision-making**: Using the results from the deep learning object detection to inform policy decisions and strategies for reducing marine pollution.\n\nBy adapting these SDGs, the proposed method could contribute to a more sustainable and environmentally conscious approach to marine plastic removal, ultimately benefiting both human and aquatic living.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:54:41.740074",
+        "question": "What is the common role of 'efficiency' in both the VNE research and the SANS threat intelligence white paper?",
+        "expected": "In VNE, efficiency refers to optimizing physical resource allocation for network traffic. In the SANS paper, efficiency refers to the strategic allocation of an organization's intelligence resources to maximize business value and risk mitigation.",
+        "actual": "Based on the provided context, the common role of 'efficiency' in both the VNE research and the SANS threat intelligence white paper is not explicitly mentioned. However, we can infer that efficiency is a key aspect of the VNE research.\n\nIn the VNE research, efficiency is related to the performance metrics such as:\n\n1. Average runtime\n2. Average cost of the solution\n3. Acceptance ratio\n\nThe goal of the VNE research is to develop algorithms that can efficiently embed Virtual Network Requests (VNRs) into a physical network while minimizing the cost and maximizing the acceptance ratio.\n\nIn the context of the SANS threat intelligence white paper, efficiency is likely related to the ability to quickly and effectively detect and respond to cyber threats. However, the provided text does not explicitly mention the SANS threat intelligence white paper.\n\nTherefore, based on the provided context, the common role of 'efficiency' in both the VNE research and the SANS threat intelligence white paper is likely related to the ability to quickly and effectively achieve a goal, whether it is embedding VNRs into a physical network or detecting and responding to cyber threats.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
     }
 ]
