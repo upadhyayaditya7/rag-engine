@@ -24,17 +24,14 @@ validator = LLMValidator(
 
 def run_evaluation():
     print(f"DEBUG: Checking collection state...")
-    collection = engine.vector_store._collection # Access the underlying chroma collection
-    print(f"Total documents in database: {collection.count()}")
-
-    # Sample a query to see if embeddings are working
-    results = collection.query(query_texts=["sustainable development"], n_results=1)
-    print(f"Sample retrieval results: {results['documents']}")
+    collection = engine.vector_store._collection
+    
+    # VITAL CHANGE: Extract unique, dynamic categories from the database metadata
+    all_metadatas = collection.get(include=['metadatas'])['metadatas']
+    available_categories = list(set(m.get('category') for m in all_metadatas if m.get('category')))
+    print(f"DEBUG: Categories detected in DB: {available_categories}")
+    
     test_file = os.path.join(basedir, 'qa_suite/test_cases.json')
-    if not os.path.exists(test_file):
-        print(f"Error: {test_file} not found.")
-        return
-
     with open(test_file, 'r') as f:
         test_cases = json.load(f)
 
@@ -43,21 +40,19 @@ def run_evaluation():
     for i, case in enumerate(test_cases, 1):
         question = case.get('question', 'N/A')
         expected = case.get('expected_answer', '')
-        category = case.get('category')
+        test_cat = case.get('category')
         is_negative = case.get('is_negative', False)
         
-        # 1. Search Logic: Unrestricted search for negative tests
-        if is_negative:
-            filter_dict = None
-        elif category == "Cross-Domain Synthesis":
-            filter_dict = None # Search everything for synthesis
-        else:
-            filter_dict = {"category": category}
+        # VITAL CHANGE: Dynamically match test category to DB category
+        # Uses fuzzy match to bridge 'Test Category' vs 'Actual DB Label'
+        filter_dict = None
+        if not is_negative and test_cat != "Cross-Domain Synthesis":
+            # Find the best match from available_categories
+            match = next((c for c in available_categories if c.lower() in test_cat.lower() or test_cat.lower() in c.lower()), None)
+            filter_dict = {"category": match} if match else None
         
-        print(f"[{i}] Testing: {question[:50]}...")
+        print(f"[{i}] Testing: {question[:50]}... | Filter: {filter_dict}")
         
-        # 2. Run Query (Modified to force clean retrieval)
-        print(f"DEBUG: Requesting filter: {filter_dict}")
         response = engine.query(question, filter_dict=filter_dict)
         actual = response.get("answer", "") if isinstance(response, dict) else str(response)
         metadata = response.get("metadata", []) if isinstance(response, dict) else []

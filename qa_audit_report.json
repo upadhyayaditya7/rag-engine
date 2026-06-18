@@ -1059,5 +1059,811 @@
             "researchPaper.pdf",
             "researchpaperOnSustainableDev.pdf"
         ]
+    },
+    {
+        "timestamp": "2026-06-18T22:48:50.611877",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:48:52.641194",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:48:55.187711",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:48:57.628234",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:49:01.363305",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:50:09.379650",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:50:11.405228",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:50:13.811939",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:50:16.212276",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:50:19.922746",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:56:48.745170",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:56:50.778160",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:56:53.226863",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:56:55.633658",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:56:59.458683",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:59:36.632274",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:59:38.666575",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T22:59:41.206647",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:59:43.634578",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T22:59:47.336082",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:02:24.191718",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:02:27.236516",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "The two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. VNE-CBS (Vanilla VNE-CBS)\n2. Improved VNE-CBS (iVNE-CBS)",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:02:29.662198",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:02:32.039906",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:02:47.713006",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:04:34.453930",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:04:37.544527",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "The two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. VNE-CBS (Vanilla VNE-CBS)\n2. Improved VNE-CBS (iVNE-CBS)",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:04:39.895671",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:04:42.249178",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:04:57.812610",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:06:53.487516",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper on sustainable development in India, the four broad categories of Sustainable Development Goals (SDGs) are not explicitly mentioned as the four most promising niches for future research. However, the paper does mention that there are sufficient gaps in the following areas:\n\n1. Infrastructure\n2. Sustainable cities and communities\n3. Responsible consumption and production\n4. Linking government plans to SDGs\n\nAdditionally, the paper mentions that there are futuristic niches in the following areas:\n\n1. Social problems of poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as having ample scope for research.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:06:56.083345",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "The two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. VNE-CBS (Vanilla VNE-CBS)\n2. Improved VNE-CBS (iVNE-CBS)",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:06:58.506224",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:07:07.005545",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:07:24.587718",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:09:26.815767",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper on sustainable development in India, the four broad categories of Sustainable Development Goals (SDGs) are not explicitly mentioned as the four most promising niches for future research. However, the paper does mention that there are sufficient gaps in the following areas:\n\n1. Infrastructure\n2. Sustainable cities and communities\n3. Responsible consumption and production\n4. Linking government plans to SDGs\n\nAdditionally, the paper mentions that there are futuristic niches in the following areas:\n\n1. Social problems of poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as having ample scope for research.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:09:29.414130",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "The two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. VNE-CBS (Vanilla VNE-CBS)\n2. Improved VNE-CBS (iVNE-CBS)",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:09:31.795561",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on sustainable development initiatives in India and reviews literature related to the Sustainable Development Goals (SDGs) in the context of India.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:09:40.246763",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "There is no mention of quantum computing in the provided VNE paper. The paper discusses the Virtual Network Embedding (VNE) problem, its formulation, and the application of the Conflict-Based Search (CBS) framework to solve it. It also mentions the use of MAPF (Multi-Agent Path Finding) and CBS in the context of VNE, but there is no reference to quantum computing.",
+        "passed": false,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:09:57.819022",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided sources, it appears that there is no direct connection between the VNE paper and sustainable development initiatives in India. However, we can attempt to make a conceptual connection by analyzing the resource allocation efficiency strategies presented in the VNE paper and applying them to the context of sustainable development.\n\nIn the VNE paper, the authors discuss the problem of allocating resources (CPU and bandwidth) to virtual network requests (VNRs) while satisfying various capacity constraints. This problem is analogous to the challenge of allocating resources (e.g., funding, infrastructure, human capital) to achieve the Sustainable Development Goals (SDGs) in India.\n\nHere are some potential ways to conceptually apply the resource allocation efficiency strategies from the VNE paper to improve sustainable development initiatives in India:\n\n1. **Optimize resource allocation**: Just as the VNE paper aims to optimize the allocation of CPU and bandwidth resources, sustainable development initiatives in India could benefit from optimizing the allocation of resources such as funding, infrastructure, and human capital to achieve the SDGs.\n2. **Satisfy capacity constraints**: The VNE paper highlights the importance of satisfying capacity constraints to ensure efficient resource allocation. Similarly, sustainable development initiatives in India could benefit from identifying and addressing capacity constraints (e.g., lack of infrastructure, human capital, or funding) to achieve the SDGs.\n3. **Prioritize resource allocation**: The VNE paper discusses the importance of prioritizing resource allocation to ensure efficient use of resources. Sustainable development initiatives in India could benefit from prioritizing resource allocation to focus on the most critical SDGs and objectives.\n4. **Use data-driven decision-making**: The VNE paper relies on data-driven decision-making to optimize resource allocation. Sustainable development initiatives in India could benefit from using data-driven decision-making to identify areas of improvement and optimize resource allocation.\n\nWhile these connections are conceptual and not directly applicable, they highlight the potential for innovative approaches to resource allocation and optimization in the context of sustainable development. Further research is needed to explore the practical applications of these strategies in the context of sustainable development initiatives in India.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:13:32.470550",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "The provided document does not contain information regarding the four most promising niches for future research. However, it does mention that there are futuristic niches in social problems of poverty, hunger, health, and education.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:13:34.970450",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "The two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. VNE-CBS\n2. Improved VNE-CBS (iVNE-CBS)",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:13:37.357781",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "The provided document does not contain information regarding this topic.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:13:45.739237",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "The provided document does not contain information regarding the impact of quantum computing on substrate network allocation.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:14:03.778102",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "The provided document does not contain information regarding this topic.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:21:40.124228",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "Based on the provided context, the four most promising niches for future research mentioned in the paper are:\n\n1. Social problems of poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as having \"futuristic niches\" in the paper, indicating that they are promising areas for future research in the context of sustainable development in India.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:21:42.142962",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:21:44.428027",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "I do not have enough information to answer the question. The provided context does not mention any specific legislative acts from the United States related to climate policy. It only discusses research papers and studies on sustainable development in India, but does not provide any information about US legislative acts.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:21:46.717538",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "I do not have enough information. The provided context does not mention anything about the impact of quantum computing on substrate network allocation. It only discusses the Virtual Network Embedding (VNE) problem, its definition, and the background literature relevant to the VNE problem, but there is no mention of quantum computing.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:21:49.446792",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, I do not have enough information to answer the question about how the resource allocation efficiency strategies from the VNE paper could be conceptually applied to improve sustainable development initiatives in India.\n\nThe context only mentions two papers related to sustainable development in India, but there is no mention of a \"VNE paper\" or any resource allocation efficiency strategies. The papers discussed are:\n\n1. \"Sustainable Development - A Case Study from Southern India.\u201d JOURNAL OF THE GEOLOGICAL SOCIETY OF INDIA  83 (3): 279 \u201389.\n2. \"India\u2019s Sustainable Development Goals - Glide Path for India\u2019s Power Sector.\u201d ENERGY POLICY 123 (December): 325 \u201336.\n\nThere is no reference to a \"VNE paper\" or any related information in the provided context. Therefore, I am unable to provide a meaningful answer to the question.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:24:59.153614",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper, the four most promising niches for future research in sustainable development in India are:\n\n1. Social problems of poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as having \"futuristic niches\" in the paper, indicating that they are areas where there is a need for further research and development.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:25:01.171790",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:25:03.483353",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "No, the paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. The paper focuses on the research conducted in India, specifically on the progress and challenges related to achieving the Sustainable Development Goals (SDGs) in the country. It discusses various studies and initiatives related to sustainable development in India, but does not provide information on legislative acts from the United States.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:25:05.804995",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "The provided text does not mention the impact of quantum computing on substrate network allocation. It appears to be a research paper focused on Virtual Network Embedding (VNE) and its related algorithms, but it does not discuss quantum computing. \n\nHowever, I can provide information on how quantum computing might impact substrate network allocation in the context of VNE. Quantum computing could potentially improve the efficiency of VNE algorithms by allowing for faster and more complex calculations, which could lead to better resource allocation and utilization in substrate networks. But this is not discussed in the provided text.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:25:09.254618",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "To address the question of how resource allocation efficiency strategies from the Virtual Network Embedding (VNE) context can be conceptually applied to improve sustainable development initiatives in India, let's break down the key concepts and explore potential connections.\n\nIn the VNE context, resource allocation efficiency strategies typically focus on optimizing the allocation of network resources (e.g., bandwidth, computing power) to embed virtual networks (e.g., services, applications) onto physical networks (e.g., data centers, networks) while minimizing resource waste and maximizing resource utilization.\n\nIn the context of sustainable development in India, resource allocation efficiency strategies can be conceptually applied to improve initiatives in the following ways:\n\n1. **Optimizing resource allocation for sustainable infrastructure development**: Just as VNE optimizes network resource allocation, sustainable development initiatives in India can benefit from optimizing resource allocation for infrastructure development, such as renewable energy systems, green buildings, and sustainable transportation systems.\n2. **Maximizing resource utilization for sustainable services**: VNE's focus on maximizing resource utilization can be applied to sustainable services in India, such as optimizing energy consumption in buildings, reducing water waste in agriculture, or increasing the efficiency of waste management systems.\n3. **Minimizing resource waste for sustainable development**: By minimizing resource waste in VNE, sustainable development initiatives in India can reduce waste in various sectors, such as reducing food waste in agriculture, minimizing plastic waste in urban areas, or reducing energy waste in industries.\n4. **Fostering partnerships for sustainable development**: VNE's focus on partnerships and collaborations can be applied to sustainable development initiatives in India, where partnerships between government, private sector, civil society, and academia can be leveraged to achieve sustainable development goals.\n\nTo apply these concepts, the following steps can be taken:\n\n1. **Identify key sustainable development goals and targets**: Focus on specific SDGs and targets relevant to India's context, such as SDG 7 (Affordable and Clean Energy), SDG 11 (Sustainable Cities and Communities), or SDG 12 (Responsible Consumption and Production).\n2. **Conduct a resource allocation analysis**: Analyze the current resource allocation for sustainable development initiatives in India, identifying areas of inefficiency and opportunities for optimization.\n3. **Develop resource allocation efficiency strategies**: Based on the analysis, develop strategies to optimize resource allocation for sustainable development initiatives, such as implementing energy-efficient technologies, promoting sustainable agriculture practices, or enhancing waste management systems.\n4. **Foster partnerships and collaborations**: Engage with stakeholders from government, private sector, civil society, and academia to leverage partnerships and collaborations to achieve sustainable development goals.\n\nBy applying resource allocation efficiency strategies from the VNE context to sustainable development initiatives in India, it is possible to improve the efficiency and effectiveness of sustainable development efforts, ultimately contributing to the achievement of the Sustainable Development Goals (SDGs).",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:29:50.843527",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper on sustainable development in India, the four most promising niches for future research are:\n\n1. Poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as \"futuristic niches in social problems\" in the paper, indicating that they have sufficient gaps in existing research and offer ample scope for research in this area.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:29:52.862449",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:29:55.098824",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "The paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. However, it does mention the Nationally Determined Contributions (NDC) targets, which are part of the Paris Agreement, an international climate agreement.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:29:57.461010",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "The VNE paper does not explicitly describe the impact of quantum computing on substrate network allocation. However, it does mention the Virtual Network Embedding (VNE) problem, which is a constrained resource allocation problem that involves allocating resources to Virtual Network Request (VNR) vertices and edges by mapping them to Substrate Network (SN) vertices and paths, respectively.\n\nThe paper discusses the VNE problem in the context of allocating physical resources of a network to satisfy requests for resources while meeting various kinds of constraints, ensuring the necessary Quality of Service (QoS), and maximizing the overall resource utilization. It also mentions the use of algorithms such as VNE-CBS and iVNE-CBS to solve the VNE problem.\n\nThere is no mention of quantum computing in the provided context.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:30:00.581350",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, the resource allocation efficiency strategies from the VNE (Virtual Network Embedding) paper can be conceptually applied to improve sustainable development initiatives in India by focusing on the following promising niches:\n\n1. **Decent Work and Economic System**: The VNE paper's resource allocation efficiency strategies can be applied to optimize the allocation of resources in India's economic system, promoting decent work and reducing inequality. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing waste, and increasing productivity.\n2. **Industry, Innovation, and Infrastructure**: The VNE paper's strategies can be applied to optimize the allocation of resources in India's industrial and infrastructure sectors, promoting innovation and reducing waste. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing energy consumption, and increasing the use of renewable energy sources.\n3. **Partnerships to Achieve Goals**: The VNE paper's strategies can be applied to optimize the allocation of resources among partnerships working towards sustainable development goals in India. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing transaction costs, and increasing collaboration among partners.\n\nTo apply these strategies, the following steps can be taken:\n\n1. Identify the key stakeholders and partnerships involved in sustainable development initiatives in India.\n2. Analyze the resource allocation patterns and inefficiencies in the current system.\n3. Develop and implement virtual networks that optimize resource allocation, reduce waste, and increase productivity.\n4. Monitor and evaluate the effectiveness of the implemented strategies and make necessary adjustments.\n\nBy applying the resource allocation efficiency strategies from the VNE paper to these promising niches, India can improve its sustainable development initiatives, reduce inequality, and promote decent work and economic growth.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf",
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:33:05.859881",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "According to the paper on sustainable development in India, the four most promising niches for future research are:\n\n1. Poverty\n2. Hunger\n3. Health\n4. Education\n\nThese areas are mentioned as \"futuristic niches in social problems\" in the paper, indicating that they have sufficient gaps in existing research and offer ample scope for research in this area.",
+        "passed": false,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:33:08.722478",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "Based on the provided context, the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem are:\n\n1. **VNE-CBS (Virtual Network Embedding Conflict-Based Search)**: This algorithm uses a high-level search and a low-level search to resolve conflicts caused by resource contentions in the VNE problem.\n2. **Improved VNE-CBS (iVNE-CBS)**: This is an improved version of the VNE-CBS algorithm, which significantly outperforms VNE-CBS in solving the VNE problem.\n\nThe VNE-CBS algorithm is described as follows:\n\n- **High-level search**: A best-first search on a Conflict Tree (CT) that resolves conflicts caused by resource contentions.\n- **Low-level search**: A pathfinding algorithm on the augmented graph that allocates resources to each VNR vertex and VNR edge under the constraints imposed by a high-level search node.\n\nThe iVNE-CBS algorithm is an improved version of VNE-CBS, which incorporates powerful algorithmic techniques such as disjoint splitting, bypassing conflicts, and conflict avoidance tables to efficiently solve the VNE problem.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:33:10.970988",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "The paper on sustainable development does not mention specific legislative acts from the United States related to climate policy. However, it does mention the Nationally Determined Contributions (NDC) targets, which are part of the Paris Agreement, an international climate agreement.",
+        "passed": true,
+        "sources": [
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:33:13.361664",
+        "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
+        "expected": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms.",
+        "actual": "The VNE paper does not explicitly describe the impact of quantum computing on substrate network allocation. However, it does mention the Virtual Network Embedding (VNE) problem, which is a constrained resource allocation problem that involves allocating resources to Virtual Network Request (VNR) vertices and edges by mapping them to Substrate Network (SN) vertices and paths, respectively.\n\nThe paper discusses the VNE problem in the context of allocating physical resources of a network to satisfy requests for resources while meeting various kinds of constraints, ensuring the necessary Quality of Service (QoS), and maximizing the overall resource utilization. It also mentions the use of algorithms such as VNE-CBS and iVNE-CBS to solve the VNE problem.\n\nThere is no mention of quantum computing in the provided context.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:33:16.516845",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, the resource allocation efficiency strategies from the VNE (Virtual Network Embedding) paper can be conceptually applied to improve sustainable development initiatives in India by focusing on the following promising niches:\n\n1. **Decent Work and Economic System**: The VNE paper's resource allocation efficiency strategies can be applied to optimize the allocation of resources in India's economic system, promoting decent work and reducing inequality. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing waste, and increasing productivity.\n2. **Industry, Innovation, and Infrastructure**: The VNE paper's strategies can be applied to optimize the allocation of resources in India's industrial and infrastructure sectors, promoting innovation and reducing waste. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing energy consumption, and increasing the use of renewable energy sources.\n3. **Partnerships to Achieve Goals**: The VNE paper's strategies can be applied to optimize the allocation of resources among partnerships working towards sustainable development goals in India. This can be achieved by embedding virtual networks that facilitate efficient resource allocation, reducing transaction costs, and increasing collaboration among partners.\n\nTo apply these strategies, the following steps can be taken:\n\n1. Identify the key stakeholders and partnerships involved in sustainable development initiatives in India.\n2. Analyze the resource allocation patterns and inefficiencies in the current system.\n3. Develop and implement virtual networks that optimize resource allocation, reduce waste, and increase productivity.\n4. Monitor and evaluate the effectiveness of the implemented strategies and make necessary adjustments.\n\nBy applying the resource allocation efficiency strategies from the VNE paper to these promising niches, India can improve its sustainable development initiatives, reduce inequality, and promote decent work and economic growth.",
+        "passed": true,
+        "sources": [
+            "researchPaper.pdf",
+            "researchpaperOnSustainableDev.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:37:14.744718",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "Based on the provided paper on sustainable development in India, I couldn't find any information on the four most promising niches for future research. However, I can infer that the paper focuses on marine plastic detection using deep learning, specifically the YOLO v4 and YOLO v5 algorithms.\n\nIf I had to look for keywords related to promising niches, I would consider the following:\n\n1. **Sustainable consumption**: The paper highlights the issue of plastic waste and its impact on the marine ecosystem. Research on sustainable consumption patterns and waste management practices could be a promising niche.\n2. **Environmental peace**: The paper emphasizes the importance of addressing ocean pollution, which can have far-reaching consequences for human and aquatic life. Research on environmental peace and the role of sustainable practices in maintaining peace could be a promising niche.\n3. **Inequality in waste management**: The paper notes that plastic waste from land can harm marine ecosystems and coastal communities. Research on inequality in waste management practices and the impact on vulnerable populations could be a promising niche.\n4. **Gender and plastic waste**: The paper does not explicitly mention gender, but research on the intersection of gender and plastic waste, including the impact on women and girls, could be a promising niche.\n\nPlease note that these are inferences based on the provided context, and I couldn't find any explicit information on the four most promising niches for future research.",
+        "passed": false,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:37:16.763563",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:37:18.784447",
+        "question": "What deep learning algorithms were investigated in the marine plastic detection paper for identifying plastics in epipelagic layers?",
+        "expected": "The paper investigated the YOLO v4 and YOLO v5 deep learning object detection algorithms for detecting and identifying marine plastics.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:37:20.804780",
+        "question": "What is the 'Intelligence-Stakeholder Gap' identified in the SANS white paper?",
+        "expected": "It is the core problem where threat intelligence teams struggle to demonstrate their value because their technical outputs are often not on the radar of senior stakeholders, limiting their influence and resource growth.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:37:22.824795",
+        "question": "According to the SANS white paper, what are the three categorized types of threat intelligence outputs?",
+        "expected": "The three types are Strategic Intelligence, Operational Intelligence, and Tactical Intelligence.",
+        "actual": "I do not have enough information to answer this question.",
+        "passed": false,
+        "sources": []
+    },
+    {
+        "timestamp": "2026-06-18T23:37:25.407752",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "Based on the provided context, it appears that the paper is not about sustainable development or climate policy, but rather about marine plastic detection using deep learning. However, I will answer the question as if it were related to the context provided.\n\nUnfortunately, the paper does not mention specific legislative acts from the United States related to climate policy. The context provided suggests that the paper is about using deep learning for marine plastic detection, and there is no mention of climate policy or legislative acts.\n\nHowever, if we were to consider the context of using the paper to guide threat intelligence function to grow in influence across every aspect of an organization, and to positively impact the organization to prioritize mitigations against global threats, we might consider the following:\n\nThe paper on sustainable development (not provided) might mention specific legislative acts from the United States related to climate policy, such as the Paris Agreement, the Clean Power Plan, or the Green New Deal. These acts aim to reduce greenhouse gas emissions and promote sustainable development.\n\nTo answer the question precisely based on the context, I would say that the paper on sustainable development might mention specific legislative acts from the United States related to climate policy, but the provided paper on marine plastic detection does not.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf",
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:37:27.661040",
+        "question": "Does the research paper on marine plastic detection mention the use of satellite imagery for real-time monitoring of deep-sea trenches?",
+        "expected": "No, the paper focuses on detecting plastics in epipelagic layers using drone-captured or ocean-surface images, not deep-sea trenches.",
+        "actual": "Based on the provided research paper, it does not explicitly mention the use of satellite imagery for real-time monitoring of deep-sea trenches. The paper focuses on using deep learning techniques for detecting marine plastics in images and real-time camera feeds, but it does not discuss satellite imagery or deep-sea trenches.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:37:31.222626",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, I will apply the resource allocation efficiency strategies from the VNE (Virtual Network Embedding) paper to improve sustainable development initiatives in India, with a focus on positively impacting the organization to prioritize mitigations against global threats.\n\nThe VNE paper focuses on optimizing resource allocation in virtual networks. Similarly, we can apply these strategies to optimize resource allocation in sustainable development initiatives in India. Here are some promising niches and strategies:\n\n1. **Resource Allocation Efficiency in Renewable Energy**: India has set ambitious targets for renewable energy production. By applying VNE strategies, we can optimize the allocation of resources (e.g., solar panels, wind turbines) to maximize energy production while minimizing costs and environmental impact.\n2. **Efficient Water Management**: India faces significant water scarcity challenges. VNE strategies can be applied to optimize water allocation and distribution, reducing waste and ensuring equitable access to this vital resource.\n3. **Sustainable Agriculture**: India's agricultural sector is a significant contributor to the country's GDP. By applying VNE strategies, we can optimize resource allocation (e.g., fertilizers, irrigation) to increase crop yields while reducing environmental impact and promoting sustainable agriculture practices.\n4. **Climate Change Mitigation**: India is vulnerable to climate change impacts, including rising temperatures and extreme weather events. VNE strategies can be applied to optimize resource allocation for climate change mitigation efforts, such as reducing greenhouse gas emissions and promoting climate-resilient infrastructure.\n5. **Disaster Risk Reduction**: India is prone to natural disasters, such as earthquakes, floods, and cyclones. VNE strategies can be applied to optimize resource allocation for disaster risk reduction efforts, including early warning systems, emergency response planning, and disaster-resistant infrastructure.\n\nTo apply these strategies, we can use the following steps:\n\n1. **Identify Key Resources**: Determine the key resources required for sustainable development initiatives in India, such as renewable energy, water, fertilizers, and climate change mitigation efforts.\n2. **Model Resource Allocation**: Use VNE models to optimize resource allocation, taking into account factors such as cost, environmental impact, and social equity.\n3. **Analyze Results**: Analyze the results of the optimized resource allocation, identifying areas of improvement and opportunities for cost savings and environmental benefits.\n4. **Implement and Monitor**: Implement the optimized resource allocation strategies and monitor their effectiveness, making adjustments as needed to ensure sustainable development outcomes.\n\nBy applying VNE strategies to sustainable development initiatives in India, we can optimize resource allocation, reduce costs and environmental impact, and promote equitable access to vital resources, ultimately contributing to a more sustainable and resilient future for the country.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:39.505294",
+        "question": "According to the paper on sustainable development in India, what are the four most promising niches for future research?",
+        "expected": "The four most promising niches identified for future research are gender equality, reduction in inequality, peace and justice, and responsible consumption and production.",
+        "actual": "Based on the provided context, it appears that the paper on sustainable development in India is not directly mentioned. However, I can infer that the question is asking for the four most promising niches for future research in the context of sustainable development in India.\n\nAfter re-reading the text, I found a mention of \"sustainable development\" in the context of the paper's sponsor, but no specific information about the niches for future research. However, I can make an educated guess based on common areas of research in sustainable development.\n\nSome promising niches for future research in sustainable development in India might include:\n\n1. **Renewable Energy and Energy Efficiency**: India has set ambitious targets for renewable energy, and research in this area could focus on improving energy efficiency, developing new renewable energy technologies, and integrating them into the grid.\n2. **Sustainable Agriculture and Food Security**: India is a major agricultural producer, and research in this area could focus on sustainable agricultural practices, improving crop yields, and ensuring food security for the growing population.\n3. **Water Conservation and Management**: India faces significant water scarcity challenges, and research in this area could focus on developing new technologies for water conservation, improving water management practices, and ensuring equitable access to water resources.\n4. **Climate Change Mitigation and Adaptation**: India is vulnerable to the impacts of climate change, and research in this area could focus on developing strategies for climate change mitigation and adaptation, including reducing greenhouse gas emissions and developing climate-resilient infrastructure.\n\nPlease note that these are just educated guesses, and the actual promising niches for future research in sustainable development in India may be different.",
+        "passed": false,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf",
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:42.206284",
+        "question": "What are the two algorithms created in the research paper to adapt the Conflict-Based Search framework for the VNE problem?",
+        "expected": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS).",
+        "actual": "Unfortunately, the provided text does not mention the research paper or the Conflict-Based Search framework for the VNE (Virtual Network Embedding) problem. However, I can suggest that you may need to look for a different source or paper that specifically addresses the VNE problem.\n\nIf you can provide more context or information about the research paper, I may be able to help you better.",
+        "passed": false,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf",
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:44.823461",
+        "question": "What deep learning algorithms were investigated in the marine plastic detection paper for identifying plastics in epipelagic layers?",
+        "expected": "The paper investigated the YOLO v4 and YOLO v5 deep learning object detection algorithms for detecting and identifying marine plastics.",
+        "actual": "Based on the provided context, the deep learning algorithms investigated in the marine plastic detection paper for identifying plastics in epipelagic layers are:\n\n1. YOLO v4 (You Only Look Once version 4)\n2. YOLO v5 (You Only Look Once version 5)\n\nThese object detection algorithms were used to identify and detect marine plastics in the epipelagic layers of water bodies, with the goal of aiding in their removal.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:47.416967",
+        "question": "What is the 'Intelligence-Stakeholder Gap' identified in the SANS white paper?",
+        "expected": "It is the core problem where threat intelligence teams struggle to demonstrate their value because their technical outputs are often not on the radar of senior stakeholders, limiting their influence and resource growth.",
+        "actual": "The 'Intelligence-Stakeholder Gap' identified in the SANS white paper refers to the disconnect between the type of intelligence produced by a threat intelligence team and the needs and understanding of their stakeholders within the organization. This gap occurs when the intelligence team produces outputs that are not aligned with the requirements and expectations of their stakeholders, leading to a lack of understanding and utilization of the intelligence produced.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:50.031223",
+        "question": "According to the SANS white paper, what are the three categorized types of threat intelligence outputs?",
+        "expected": "The three types are Strategic Intelligence, Operational Intelligence, and Tactical Intelligence.",
+        "actual": "According to the SANS white paper, the three categorized types of threat intelligence outputs are:\n\n1. **Strategic Intelligence**: High-level human-consumable reports about threats affecting the larger organization, intended for high-level operational and strategic decision makers in the organization, such as a board of directors, senior leaders, and enterprise risk leaders.\n\n2. **Operational Intelligence**: Outputs for managers of \u201chands to keyboard\u201d teams such as IT and physical security, risk managers, and other operational teams, providing actionable information to facilitate their work.\n\n3. **Tactical Intelligence**: Outputs for tactical teams, providing detailed, actionable information to support immediate decision-making and response to threats.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:52.581827",
+        "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
+        "expected": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation.",
+        "actual": "Based on the provided context, it appears that the paper is not about sustainable development or climate policy, but rather about marine plastic detection using deep learning. However, I will answer the question as if it were related to the context provided.\n\nUnfortunately, the paper does not mention specific legislative acts from the United States related to climate policy. The context provided suggests that the paper is about using deep learning for marine plastic detection, and there is no mention of climate policy or legislative acts.\n\nHowever, if we were to consider the context of using the paper to guide threat intelligence function to grow in influence across every aspect of an organization, and to positively impact the organization to prioritize mitigations against global threats, we might consider the following:\n\nThe paper on sustainable development (not provided) might mention specific legislative acts from the United States related to climate policy, such as the Paris Agreement, the Clean Power Plan, or the Green New Deal. These acts aim to reduce greenhouse gas emissions and promote sustainable development.\n\nTo answer the question precisely based on the context, I would say that the paper on sustainable development might mention specific legislative acts from the United States related to climate policy, but the provided paper on marine plastic detection does not.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf",
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:54.847976",
+        "question": "Does the research paper on marine plastic detection mention the use of satellite imagery for real-time monitoring of deep-sea trenches?",
+        "expected": "No, the paper focuses on detecting plastics in epipelagic layers using drone-captured or ocean-surface images, not deep-sea trenches.",
+        "actual": "Based on the provided research paper, it does not explicitly mention the use of satellite imagery for real-time monitoring of deep-sea trenches. The paper focuses on using deep learning techniques for detecting marine plastics in images and real-time camera feeds, but it does not discuss satellite imagery or deep-sea trenches.",
+        "passed": true,
+        "sources": [
+            "Marine_Plastic_Detection_Using_Deep_Learning.pdf"
+        ]
+    },
+    {
+        "timestamp": "2026-06-18T23:43:58.276362",
+        "question": "How could the resource allocation efficiency strategies from the VNE paper be conceptually applied to improve sustainable development initiatives in India?",
+        "expected": "Efficiency strategies from VNE\u00e2\u20ac\u201dlike maximizing resource utilization and managing physical constraints\u00e2\u20ac\u201dcould be applied to India's sustainable development by optimizing the allocation of infrastructure resources (like power or water) to ensure that the needs of current populations are met without exceeding the capacity of the natural network.",
+        "actual": "Based on the provided context, I will apply the resource allocation efficiency strategies from the VNE (Virtual Network Embedding) paper to improve sustainable development initiatives in India, with a focus on positively impacting the organization to prioritize mitigations against global threats.\n\nThe VNE paper focuses on optimizing resource allocation in virtual networks. Similarly, we can apply these strategies to optimize resource allocation in sustainable development initiatives in India. Here are some promising niches and strategies:\n\n1. **Resource Allocation Efficiency in Renewable Energy**: India has set ambitious targets for renewable energy, aiming to reach 40% of its electricity generation from non-fossil fuels by 2030. By applying VNE strategies, we can optimize the allocation of resources (e.g., solar panels, wind turbines, and energy storage systems) to maximize the efficiency of renewable energy generation and reduce greenhouse gas emissions.\n2. **Efficient Water Management**: India faces significant water scarcity challenges. By applying VNE strategies, we can optimize the allocation of water resources, reducing waste and improving water efficiency in agriculture, industry, and households.\n3. **Sustainable Agriculture**: India's agricultural sector is a significant contributor to greenhouse gas emissions. By applying VNE strategies, we can optimize the allocation of resources (e.g., fertilizers, pesticides, and irrigation systems) to improve crop yields while reducing environmental impact.\n4. **Climate-Resilient Infrastructure**: India is vulnerable to climate-related disasters, such as floods and droughts. By applying VNE strategies, we can optimize the allocation of resources for climate-resilient infrastructure, such as sea walls, levees, and green roofs.\n5. **Waste Management**: India generates significant amounts of waste, which can have negative environmental impacts. By applying VNE strategies, we can optimize the allocation of resources for waste management, reducing waste disposal costs and improving public health.\n\nTo apply these strategies, we can use the following steps:\n\n1. **Identify key stakeholders**: Engage with government agencies, NGOs, and private sector organizations to understand their priorities and challenges in sustainable development.\n2. **Conduct a resource assessment**: Identify the available resources (e.g., financial, human, and technological) and their allocation across different sectors.\n3. **Develop a resource allocation model**: Use VNE strategies to optimize the allocation of resources, taking into account the priorities and challenges of key stakeholders.\n4. **Implement and monitor**: Implement the optimized resource allocation plan and monitor its effectiveness in achieving sustainable development goals.\n\nBy applying these strategies, we can improve the efficiency of resource allocation in sustainable development initiatives in India, reducing waste, improving public health, and mitigating the impacts of global threats such as climate change.",
+        "passed": true,
+        "sources": [
+            "SANS-Bridging-Gap-Between-Threat-Intelligence-Business-Risk_Garvey.pdf"
+        ]
     }
 ]

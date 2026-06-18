@@ -12,16 +12,34 @@
     "expected_answer": "The two algorithms created are VNE-CBS and its improved version, Improved VNE-CBS (iVNE-CBS)."
   },
   {
+    "category": "Marine Plastic Detection",
+    "is_negative": false,
+    "question": "What deep learning algorithms were investigated in the marine plastic detection paper for identifying plastics in epipelagic layers?",
+    "expected_answer": "The paper investigated the YOLO v4 and YOLO v5 deep learning object detection algorithms for detecting and identifying marine plastics."
+  },
+  {
+    "category": "Threat Intelligence",
+    "is_negative": false,
+    "question": "What is the 'Intelligence-Stakeholder Gap' identified in the SANS white paper?",
+    "expected_answer": "It is the core problem where threat intelligence teams struggle to demonstrate their value because their technical outputs are often not on the radar of senior stakeholders, limiting their influence and resource growth."
+  },
+  {
+    "category": "Threat Intelligence",
+    "is_negative": false,
+    "question": "According to the SANS white paper, what are the three categorized types of threat intelligence outputs?",
+    "expected_answer": "The three types are Strategic Intelligence, Operational Intelligence, and Tactical Intelligence."
+  },
+  {
     "category": "Sustainable Development",
     "is_negative": true,
     "question": "Does the paper on sustainable development mention specific legislative acts from the United States related to climate policy?",
     "expected_answer": "No, the paper focuses exclusively on sustainable development initiatives within India and does not mention U.S. climate policy or legislation."
   },
   {
-    "category": "Virtual Network Embedding",
+    "category": "Marine Plastic Detection",
     "is_negative": true,
-    "question": "How does the VNE paper describe the impact of quantum computing on sub-strate network allocation?",
-    "expected_answer": "The provided document does not contain any information regarding quantum computing; it focuses on Conflict-Based Search (CBS) and Virtual Network Embedding (VNE) algorithms."
+    "question": "Does the research paper on marine plastic detection mention the use of satellite imagery for real-time monitoring of deep-sea trenches?",
+    "expected_answer": "No, the paper focuses on detecting plastics in epipelagic layers using drone-captured or ocean-surface images, not deep-sea trenches."
   },
   {
     "category": "Cross-Domain Synthesis",

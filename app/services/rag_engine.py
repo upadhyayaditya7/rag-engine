@@ -7,20 +7,20 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.documents import Document
 from rank_bm25 import BM25Okapi
+import json
 
 class RAGEngine:
     def _classify_text(self, text_snippet):
         prompt = f"""
-        Classify the following text into one of these categories: 'Climate Science', 'Neural Networks', or 'Other'. 
-        Return ONLY the category name.
-        Text: {text_snippet}
-        """
-        # Using your existing self.llm
+    Analyze the following research text. Create a single, short, descriptive 
+    category tag (e.g., 'Marine Plastic Detection', 'Threat Intelligence').
+    Do not use complex sentences. Return ONLY the tag.
+    
+    Text: {text_snippet[:1000]}
+    """
         response = self.llm.invoke(prompt)
-        # Depending on your LLM client (Groq/LangChain), 
-        # the response might be a message object. Adjust accordingly:
-        return response.content if hasattr(response, 'content') else str(response)
-
+        return response.content.strip()
+    
     def __init__(self, data_dir, db_dir):
         self.data_dir = os.path.abspath(data_dir)
         self.db_dir = os.path.abspath(db_dir)
@@ -33,20 +33,25 @@ class RAGEngine:
         self.chunks = []
 
     def initialize(self):
+        import json
         print(f"DEBUG: Scanning directory: {self.data_dir}")
         files = [f for f in os.listdir(self.data_dir) if f.endswith(('.pdf', '.txt'))]
+        cache_file = os.path.join(self.data_dir, "category_cache.json")
         
-        # Check if DB has data
+        file_categories = {}
+        if os.path.exists(cache_file):
+            with open(cache_file, 'r') as f:
+                file_categories = json.load(f)
+
+        # Check existing data
         data = self.vector_store.get(include=['metadatas', 'documents'])
         
-        if data['documents'] and files:
-            print("Database exists. Rehydrating...")
+        # Determine if we need to ingest (If DB is empty OR files were added)
+        if data['documents'] and not files:
+             # Just load what's there
             self.chunks = [Document(page_content=doc, metadata=meta) for doc, meta in zip(data['documents'], data['metadatas'])]
-        elif not files:
-            print("Data directory empty. Skipping initialization.")
-            return
         else:
-            print("Ingesting documents...")
+            print("Ingesting or Refreshing documents...")
             raw_docs = []
             for loader_cls, glob in [(TextLoader, "**/*.txt"), (PyPDFLoader, "**/*.pdf")]:
                 loader = DirectoryLoader(self.data_dir, glob=glob, loader_cls=loader_cls)
@@ -54,23 +59,30 @@ class RAGEngine:
             
             splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             self.chunks = splitter.split_documents(raw_docs)
+            
             print("Categorizing and indexing documents...")
-            file_categories = {}
-
             for doc in self.chunks:
                 source = os.path.basename(doc.metadata.get('source', 'unknown'))
                 
-                # Only call LLM if we haven't categorized this file yet
+                # If file not in cache, categorize it
                 if source not in file_categories:
-                    text_sample = doc.page_content[:500]
-                    file_categories[source] = self._classify_text(text_sample).strip().title()
+                    text_sample = doc.page_content[:800]
+                    category = self._classify_text(text_sample).strip().replace("'", "").title()
+                    file_categories[source] = category
+                    print(f"DEBUG: Classified {source} as {category}")
                 
-                # Apply cached category and metadata
                 doc.metadata['file_name'] = source
                 doc.metadata['category'] = file_categories[source]
-                # Inside the loop where you tag docs
-                print(f"DEBUG: Tagging {source} as {file_categories[source]}")
 
+            with open(cache_file, 'w') as f:
+                json.dump(file_categories, f)
+
+            # CRITICAL: If data exists, clear it to avoid duplicate indices before adding new
+            if data['documents']:
+                self.vector_store.delete_collection()
+                # Re-initialize vector store after deletion
+                self.vector_store = Chroma(persist_directory=self.db_dir, embedding_function=self.embeddings)
+            
             self.vector_store.add_documents(self.chunks)
             print(f"Indexed {len(self.chunks)} chunks.")
 
@@ -85,6 +97,15 @@ class RAGEngine:
         search_kwargs = {"k": 5}
         if filter_dict:
             search_kwargs["filter"] = filter_dict
+            filter_key = list(filter_dict.keys())[0]
+            filter_value = filter_dict[filter_key]
+            filtered_chunks = [
+                c for c in self.chunks 
+                if c.metadata.get(filter_key, "").lower() == filter_value.lower()
+            ]
+    
+            if not filtered_chunks:
+                print(f"DEBUG: No chunks matched {filter_dict}")
         
         vector_docs = self.vector_store.similarity_search(user_question, **search_kwargs)
         
@@ -105,7 +126,7 @@ class RAGEngine:
                 bm25_docs = self.bm25_index.get_top_n(query_tokens, self.chunks, n=5)
 
         # 3. Combine and Deduplicate
-        combined_docs = {d.page_content: d for d in (vector_docs + bm25_docs)}.values()
+        combined_docs = list({d.page_content: d for d in (vector_docs + bm25_docs)}.values())
         
         if not combined_docs:
             return {"answer": "I do not have enough information to answer this question.", "metadata": []}
@@ -120,7 +141,20 @@ class RAGEngine:
             print(f"DEBUG: Doc {i} Source: {d.metadata.get('file_name')}")
         
         # 5. LLM Prompting
-        prompt = ChatPromptTemplate.from_template("Use ONLY: {context}\nQuestion: {question}")
+        top_docs = combined_docs[:3] 
+        combined_context = "\n---\n".join([d.page_content for d in top_docs])
+        # Updated LLM Prompt
+        # In your RAGEngine.query() method:
+        prompt = ChatPromptTemplate.from_template("""
+    You are a research assistant. 
+    Question: {question}
+    
+    Context: {context}
+    
+    INSTRUCTION: If the question asks for "promising niches", 
+    look for keywords like "gender", "inequality", "peace", or "consumption".
+    Answer precisely based on the context.
+    """)
         response = self.llm.invoke(prompt.format(context=combined_context, question=user_question))
         
         return {"answer": response.content, "metadata": [d.metadata for d in combined_docs]}
