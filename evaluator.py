@@ -47,11 +47,17 @@ def run_evaluation():
         is_negative = case.get('is_negative', False)
         
         # 1. Search Logic: Unrestricted search for negative tests
-        filter_dict = None if is_negative else {"category": category}
+        if is_negative:
+            filter_dict = None
+        elif category == "Cross-Domain Synthesis":
+            filter_dict = None # Search everything for synthesis
+        else:
+            filter_dict = {"category": category}
         
         print(f"[{i}] Testing: {question[:50]}...")
         
         # 2. Run Query (Modified to force clean retrieval)
+        print(f"DEBUG: Requesting filter: {filter_dict}")
         response = engine.query(question, filter_dict=filter_dict)
         actual = response.get("answer", "") if isinstance(response, dict) else str(response)
         metadata = response.get("metadata", []) if isinstance(response, dict) else []

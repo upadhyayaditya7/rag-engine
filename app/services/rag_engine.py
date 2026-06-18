@@ -9,6 +9,18 @@ from langchain_core.documents import Document
 from rank_bm25 import BM25Okapi
 
 class RAGEngine:
+    def _classify_text(self, text_snippet):
+        prompt = f"""
+        Classify the following text into one of these categories: 'Climate Science', 'Neural Networks', or 'Other'. 
+        Return ONLY the category name.
+        Text: {text_snippet}
+        """
+        # Using your existing self.llm
+        response = self.llm.invoke(prompt)
+        # Depending on your LLM client (Groq/LangChain), 
+        # the response might be a message object. Adjust accordingly:
+        return response.content if hasattr(response, 'content') else str(response)
+
     def __init__(self, data_dir, db_dir):
         self.data_dir = os.path.abspath(data_dir)
         self.db_dir = os.path.abspath(db_dir)
@@ -22,14 +34,18 @@ class RAGEngine:
 
     def initialize(self):
         print(f"DEBUG: Scanning directory: {self.data_dir}")
-        print(f"DEBUG: Files found: {os.listdir(self.data_dir)}")
-        # 1. Check if DB has data
+        files = [f for f in os.listdir(self.data_dir) if f.endswith(('.pdf', '.txt'))]
+        
+        # Check if DB has data
         data = self.vector_store.get(include=['metadatas', 'documents'])
-        if data['documents']:
+        
+        if data['documents'] and files:
             print("Database exists. Rehydrating...")
             self.chunks = [Document(page_content=doc, metadata=meta) for doc, meta in zip(data['documents'], data['metadatas'])]
+        elif not files:
+            print("Data directory empty. Skipping initialization.")
+            return
         else:
-            # 2. Ingestion Path
             print("Ingesting documents...")
             raw_docs = []
             for loader_cls, glob in [(TextLoader, "**/*.txt"), (PyPDFLoader, "**/*.pdf")]:
@@ -38,15 +54,26 @@ class RAGEngine:
             
             splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             self.chunks = splitter.split_documents(raw_docs)
-            
-            # Add metadata
+            print("Categorizing and indexing documents...")
+            file_categories = {}
+
             for doc in self.chunks:
-                doc.metadata['file_name'] = os.path.basename(doc.metadata.get('source', 'unknown'))
-                print(f"DEBUG: Chunk metadata: {doc.metadata}")
+                source = os.path.basename(doc.metadata.get('source', 'unknown'))
+                
+                # Only call LLM if we haven't categorized this file yet
+                if source not in file_categories:
+                    text_sample = doc.page_content[:500]
+                    file_categories[source] = self._classify_text(text_sample).strip().title()
+                
+                # Apply cached category and metadata
+                doc.metadata['file_name'] = source
+                doc.metadata['category'] = file_categories[source]
+                # Inside the loop where you tag docs
+                print(f"DEBUG: Tagging {source} as {file_categories[source]}")
+
             self.vector_store.add_documents(self.chunks)
             print(f"Indexed {len(self.chunks)} chunks.")
 
-        # 3. Always rebuild indices after setting self.chunks
         self._rebuild_indices()
 
     def _rebuild_indices(self):
@@ -68,9 +95,12 @@ class RAGEngine:
             if filter_dict:
                 filename_to_match = filter_dict.get('file_name')
                 filtered_chunks = [c for c in self.chunks if c.metadata.get('file_name') == filename_to_match]
-                temp_tokenized = [c.page_content.lower().split() for c in filtered_chunks]
-                temp_bm25 = BM25Okapi(temp_tokenized)
-                bm25_docs = temp_bm25.get_top_n(query_tokens, filtered_chunks, n=5)
+                if not filtered_chunks:
+                    print(f"DEBUG: No chunks found for filter {filter_dict}, skipping BM25.")
+                else:
+                    temp_tokenized = [c.page_content.lower().split() for c in filtered_chunks]
+                    temp_bm25 = BM25Okapi(temp_tokenized)
+                    bm25_docs = temp_bm25.get_top_n(query_tokens, filtered_chunks, n=5)
             else:
                 bm25_docs = self.bm25_index.get_top_n(query_tokens, self.chunks, n=5)
 
@@ -85,6 +115,9 @@ class RAGEngine:
             f"Source File: {d.metadata.get('file_name', 'Unknown')}\nContent: {d.page_content}" 
             for d in combined_docs
         ])
+        print(f"DEBUG: Retrieved {len(combined_docs)} docs.")
+        for i, d in enumerate(combined_docs):
+            print(f"DEBUG: Doc {i} Source: {d.metadata.get('file_name')}")
         
         # 5. LLM Prompting
         prompt = ChatPromptTemplate.from_template("Use ONLY: {context}\nQuestion: {question}")
